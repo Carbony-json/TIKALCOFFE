@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Primario
+                        'helecho': '#588157', // Acento (Botón)
+                        'salvia': '#A3B18A',  // Secundario
+                        'polvo': '#DAD7CD',   // Fondo
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+    </style>
+</head>
+<body class="bg-polvo min-h-screen italic">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <!-- COLUMNA IZQUIERDA: IMAGEN E IMPACTO (Filtro verde eliminado) -->
+        <div class="hidden lg:flex lg:w-3/5 relative items-center justify-center overflow-hidden bg-black">
+            <!-- IMAGEN: Se eliminó opacity-50 y mix-blend-overlay para mostrar colores naturales -->
+            <img src="https://i.pinimg.com/736x/cf/a3/ae/cfa3ae2eea73596972f415d7302a5c0b.jpg" 
+                 class="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-1000 hover:scale-100">
+            
+            <!-- Overlay degradado sutil solo para legibilidad del texto blanco -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+            <div class="relative z-10 text-white p-16 max-w-xl">
+                <h2 class="text-7xl font-titulo mb-6 leading-tight italic drop-shadow-2xl">Bienvenido <br> de nuevo</h2>
+                <p class="text-xl font-light leading-relaxed opacity-90 italic">
+                    Tu próxima aventura en el Mundo Maya comienza con un clic. Accede para gestionar tus estancias y rutas.
+                </p>
+                <div class="mt-10 h-1 w-20 bg-salvia"></div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: FORMULARIO (Totalmente adaptado a móvil) -->
+        <div class="w-full lg:w-2/5 flex flex-col items-center justify-center p-8 md:p-16 bg-white min-h-screen shadow-2xl">
+            
+            <div class="w-full max-w-sm">
+                <!-- CABECERA DEL FORMULARIO (Logo y Título) -->
+                <div class="mb-12 text-center lg:text-left">
+                    <div class="text-cazador font-titulo text-4xl mb-2 italic font-bold tracking-tighter">TikalCoffee</div>
+                    <h2 class="text-lg font-bold text-salvia uppercase tracking-[0.2em]">Acceso a cuenta</h2>
+                    <div class="h-[1px] w-12 bg-salvia/30 mt-4 mx-auto lg:mx-0"></div>
+                </div>
+
+                <!-- FORMULARIO -->
+                <form action="admin-dashboard.html" class="space-y-8">
+                    <div class="group">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-2 tracking-widest italic group-focus-within:text-cazador transition-colors">Correo Electrónico</label>
+                        <input type="email" placeholder="usuario@ejemplo.com" 
+                               class="w-full px-0 py-3 bg-transparent border-b border-gray-200 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                    </div>
+
+                    <div class="group">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-2 tracking-widest italic group-focus-within:text-cazador transition-colors">Contraseña</label>
+                        <input type="password" placeholder="••••••••" 
+                               class="w-full px-0 py-3 bg-transparent border-b border-gray-200 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                    </div>
+
+                    <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-tighter">
+                        <label class="flex items-center text-gray-400 cursor-pointer hover:text-cazador transition">
+                            <input type="checkbox" class="mr-2 accent-cazador w-4 h-4"> Recordarme
+                        </label>
+                        <a href="#" class="text-salvia hover:text-cazador transition underline decoration-salvia/30">¿Olvidaste tu clave?</a>
+                    </div>
+
+                    <button type="submit" class="w-full bg-helecho text-white py-5 rounded-full font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition-all duration-300 transform hover:-translate-y-1 uppercase text-xs tracking-widest italic">
+                        ENTRAR A MI CUENTA
+                    </button>
+                </form>
+
+                <!-- FOOTER DEL LOGIN -->
+                <div class="mt-16 text-center lg:text-left border-t border-gray-50 pt-10">
+                    <p class="text-sm text-gray-400 mb-6 italic">
+                        ¿Aún no eres parte de la aventura? 
+                        <a href="register.html" class="text-cazador font-bold hover:underline decoration-salvia italic ml-1">Crea una cuenta</a>
+                    </p>
+                    <a href="index.html" class="text-[10px] text-salvia font-bold tracking-[0.2em] uppercase hover:text-cazador transition flex items-center justify-center lg:justify-start">
+                        <span class="mr-2">←</span> Volver al inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

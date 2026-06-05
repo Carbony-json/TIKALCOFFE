@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospedajes | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: Tailwind + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Primario
+                        'helecho': '#588157', // Acento
+                        'salvia': '#A3B18A',  // Secundario
+                        'nieve': '#FAF9F6',   // Blanco Limpio
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        .map-overlay { opacity: 0; transition: all 0.5s ease-in-out; }
+        .group:hover .map-overlay { opacity: 1; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="text-cazador italic overflow-x-hidden">
+
+    <!-- NAVBAR CONSISTENTE -->
+    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-salvia/20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center italic">
+            <a href="index.html" class="text-3xl font-titulo font-bold tracking-tighter italic">TikalCoffee</a>
+            
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] italic">
+                <a href="index.html" class="hover:text-helecho transition">Inicio</a>
+                <a href="airbnb-catalogo.html" class="text-helecho border-b-2 border-helecho">Hospedaje</a>
+                <a href="rutas-catalogo.html" class="hover:text-helecho transition">Rutas</a>
+                <a href="guias-directorio.html" class="hover:text-helecho transition">Staff</a>
+            </div>
+
+            <div class="flex items-center space-x-4 italic">
+                <a href="auth/login.html" class="bg-cazador text-white px-8 py-2 rounded-full text-[10px] font-bold shadow-lg hover:bg-helecho transition uppercase tracking-widest italic">Login</a>
+                <button onclick="toggleMenu()" class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+        <!-- Menú Móvil -->
+        <div id="mobileMenu" class="hidden flex-col bg-white border-b border-salvia/20 p-6 space-y-4 text-center font-bold text-xs uppercase tracking-widest md:hidden">
+            <a href="index.html">Inicio</a>
+            <a href="airbnb-catalogo.html">Hospedaje</a>
+            <a href="rutas-catalogo.html">Rutas</a>
+            <a href="guias-directorio.html">Staff</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-32 italic font-bold">
+        
+        <!-- ENCABEZADO DE SECCIÓN -->
+        <header class="mb-20 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-10">
+            <div class="max-w-2xl">
+                <span class="text-helecho font-bold text-[10px] tracking-[0.4em] uppercase italic">Estancias Boutique</span>
+                <h1 class="text-5xl md:text-7xl font-titulo italic mt-4 leading-tight underline decoration-salvia underline-offset-8">Refugios con <br> Alma de Tierra</h1>
+                <p class="text-sm text-gray-500 mt-6 leading-relaxed max-w-lg italic">Descubre nuestra colección exclusiva de casas y hospedajes diseñados para el descanso y la conexión con Petén.</p>
+            </div>
+            
+            <!-- FILTROS MINIMALISTAS -->
+            <div class="flex items-center space-x-3 bg-white p-2 rounded-2xl border border-salvia/20 shadow-sm">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4 ml-2 text-salvia"></i>
+                <select class="bg-transparent text-[10px] font-bold uppercase py-2 pr-8 outline-none cursor-pointer italic">
+                    <option>Todas las ubicaciones</option>
+                    <option>Isla de Flores</option>
+                    <option>El Remate</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- GRID DE HOSPEDAJES -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            
+            <!-- Card 1 -->
+            <div class="group relative bg-white rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
+                <div class="relative h-80 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105">
+                    
+                    <!-- Efecto Hilton -->
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-salvia mb-4"></i>
+                        <h4 class="text-2xl font-titulo italic mb-2">Isla de Flores</h4>
+                        <p class="text-[10px] uppercase tracking-widest opacity-70 italic font-bold">Ubicación verificada por TikalCoffee</p>
+                        <div class="mt-6 h-[1px] w-12 bg-salvia/30"></div>
+                        <button class="mt-6 text-[9px] font-bold uppercase underline tracking-widest italic">Ver mapa</button>
+                    </div>
+
+                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
+                        <p class="text-[10px] font-bold text-cazador italic font-bold">⭐ 4.9</p>
+                    </div>
+                </div>
+
+                <div class="p-10 flex-1 flex flex-col justify-between italic font-bold">
+                    <div>
+                        <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold leading-tight">Casa del Lago Premium</h3>
+                        <p class="text-[13px] text-gray-500 leading-relaxed italic mb-6">Suite de lujo con materiales sostenibles y terraza privada frente al agua.</p>
+                        
+                        <div class="flex items-center space-x-4 opacity-40">
+                            <i data-lucide="wifi" class="w-4 h-4"></i>
+                            <i data-lucide="wind" class="w-4 h-4"></i>
+                            <i data-lucide="coffee" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 flex justify-between items-center pt-8 border-t border-gray-50 italic font-bold">
+                        <div>
+                            <p class="text-[9px] font-bold text-salvia uppercase tracking-widest font-bold">Desde</p>
+                            <p class="text-2xl font-bold text-cazador italic font-bold">Q450.00</p>
+                        </div>
+                        <a href="airbnb-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg italic font-bold">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 italic font-bold"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Puedes añadir más cards aquí siguiendo el mismo patrón -->
+
+        </div>
+    </main>
+
+    <!-- FOOTER VERDE CAZADOR (Simetría Total) -->
+    <footer class="bg-cazador pt-20 pb-10 text-nieve text-center italic border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6 italic font-bold">
+            <h2 class="font-titulo text-4xl text-nieve mb-4 italic tracking-tight">TikalCoffee</h2>
+            <div class="h-[1px] w-20 bg-salvia/30 mx-auto mb-10"></div>
+            
+            <div class="flex justify-center space-x-8 text-[11px] font-bold uppercase tracking-[0.3em] text-salvia mb-12 italic">
+            </div>
+            
+            <p class="text-[9px] text-nieve/40 uppercase tracking-widest italic font-bold">© 2024 Flores, Petén, Guatemala.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas de Aventura | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: Tailwind + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Primario
+                        'helecho': '#588157', // Acento
+                        'salvia': '#A3B18A',  // Secundario
+                        'polvo': '#FAF9F6',   // Fondo
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        .map-overlay { opacity: 0; transition: all 0.4s ease; }
+        .group:hover .map-overlay { opacity: 1; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="text-cazador italic">
+
+    <!-- NAVBAR (Simetría con Index) -->
+    <nav class="fixed w-full z-[100] bg-polvo/90 backdrop-blur-md border-b border-salvia/30 italic">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-titulo font-bold tracking-tighter">TikalCoffee</a>
+            
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+                <a href="index.html" class="hover:text-helecho transition">Inicio</a>
+                <a href="airbnb-catalogo.html" class="hover:text-helecho transition">Hospedaje</a>
+                <a href="rutas-catalogo.html" class="text-helecho border-b-2 border-helecho">Rutas</a>
+                <a href="guias-directorio.html" class="hover:text-helecho transition">Staff</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="auth/login.html" class="bg-cazador text-polvo px-6 py-2 rounded-full text-[10px] font-bold hover:bg-helecho transition shadow-lg uppercase italic">Login</a>
+                <button onclick="toggleMenu()" class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+        <!-- Menú Móvil -->
+        <div id="mobileMenu" class="hidden flex-col bg-polvo border-b border-salvia p-6 space-y-4 text-center font-bold text-xs uppercase tracking-widest md:hidden italic">
+            <a href="index.html">Inicio</a>
+            <a href="airbnb-catalogo.html">Hospedaje</a>
+            <a href="rutas-catalogo.html">Rutas</a>
+            <a href="guias-directorio.html">Staff</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-32">
+        
+        <!-- ENCABEZADO DE SECCIÓN -->
+        <header class="mb-20 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-8">
+            <div class="max-w-2xl">
+                <span class="text-helecho font-bold text-[10px] tracking-[0.3em] uppercase">Explora el Mundo Maya</span>
+                <h1 class="text-5xl md:text-7xl font-titulo italic mt-4 leading-tight underline decoration-salvia underline-offset-8">Aventuras en <br> la Selva</h1>
+                <p class="text-sm text-gray-600 mt-6 italic leading-relaxed">Itinerarios diseñados por expertos locales de TikalCoffee para conectar con la historia, la naturaleza y la esencia de Petén.</p>
+            </div>
+            
+            <!-- FILTROS -->
+            <div class="flex flex-wrap gap-3 italic">
+                <div class="bg-white/50 border border-salvia/30 rounded-2xl px-4 py-2 flex items-center space-x-2 shadow-sm">
+                    <i data-lucide="filter" class="w-3 h-3"></i>
+                    <select class="bg-transparent text-[10px] font-bold uppercase outline-none cursor-pointer">
+                        <option>Dificultad: Todas</option>
+                        <option>Fácil</option>
+                        <option>Media</option>
+                        <option>Aventura Pro</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- GRID DE RUTAS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 italic">
+            
+            <!-- Ruta 1 -->
+            <div class="group relative bg-white/40 rounded-[3rem] overflow-hidden border border-salvia/10 hover:shadow-2xl transition-all duration-500 flex flex-col">
+                <div class="relative h-72 overflow-hidden">
+                    <!-- IMAGEN: Tikal Amanecer -->
+                    <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/0a/5b/2a/19.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110">
+                    
+                    <!-- Efecto Hilton (Itinerario Rápido) -->
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <i data-lucide="map" class="w-8 h-8 text-salvia mb-4"></i>
+                        <h4 class="text-xl font-titulo italic mb-4">Itinerario Místico</h4>
+                        <div class="space-y-2 text-[10px] uppercase tracking-widest opacity-80">
+                            <p>04:00 AM - Salida Flores</p>
+                            <p>06:00 AM - Amanecer Templo IV</p>
+                            <p>10:00 AM - Desayuno en Selva</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-6 left-6 flex space-x-2">
+                        <span class="bg-helecho/90 backdrop-blur-md text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Arqueología</span>
+                        <span class="bg-white/90 backdrop-blur-md text-cazador text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter italic">⭐ 5.0</span>
+                    </div>
+                </div>
+
+                <div class="p-10 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-2 text-[9px] font-bold text-salvia uppercase">
+                                <i data-lucide="clock" class="w-3 h-3"></i> <span>6 Horas</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-[9px] font-bold text-salvia uppercase">
+                                <i data-lucide="mountain" class="w-3 h-3"></i> <span>Media</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold">Amanecer en Tikal</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed italic">Vive el despertar de la selva desde la cima de un templo milenario mientras el sol ilumina el Mundo Maya.</p>
+                    </div>
+
+                    <div class="mt-10 flex justify-between items-center pt-6 border-t border-salvia/20">
+                        <div>
+                            <p class="text-[9px] font-bold text-salvia uppercase tracking-widest">Inversión</p>
+                            <p class="text-2xl font-bold text-cazador italic">Q350.00</p>
+                        </div>
+                        <a href="rutas-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg shadow-helecho/20">
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ruta 2 -->
+            <div class="group relative bg-white/40 rounded-[3rem] overflow-hidden border border-salvia/10 hover:shadow-2xl transition-all duration-500 flex flex-col italic">
+                <div class="relative h-72 overflow-hidden">
+                    <!-- IMAGEN: Cráter Azul -->
+                    <img src="https://craterazul.com/wp-content/themes/yootheme/cache/86/tour-al-crater-azul-86e2561c.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110">
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <i data-lucide="compass" class="w-8 h-8 text-salvia mb-4"></i>
+                        <h4 class="text-xl font-titulo italic mb-4">Aventura Acuática</h4>
+                        <div class="space-y-2 text-[10px] uppercase tracking-widest opacity-80 italic font-bold">
+                            <p>08:00 AM - Traslado Lancha</p>
+                            <p>11:00 AM - Nado en Aguas Cristalinas</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-6 left-6 flex space-x-2">
+                        <span class="bg-blue-600/80 backdrop-blur-md text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter italic">Naturaleza</span>
+                    </div>
+                </div>
+                <div class="p-10 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-2 text-[9px] font-bold text-salvia uppercase italic">
+                                <i data-lucide="clock" class="w-3 h-3"></i> <span>8 Horas</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-[9px] font-bold text-salvia uppercase italic">
+                                <i data-lucide="mountain" class="w-3 h-3"></i> <span>Baja</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold">Expedición Cráter Azul</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed italic">Navega por ríos vírgenes hasta un jardín subacuático de aguas turquesas incomparables.</p>
+                    </div>
+                    <div class="mt-10 flex justify-between items-center pt-6 border-t border-salvia/20">
+                        <div>
+                            <p class="text-[9px] font-bold text-salvia uppercase tracking-widest italic font-bold">Inversión</p>
+                            <p class="text-2xl font-bold text-cazador italic">Q500.00</p>
+                        </div>
+                        <a href="rutas-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg shadow-helecho/20 italic font-bold">
+                            <i data-lucide="arrow-right" class="w-4 h-4 italic"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+<!-- Ruta 3: Atardecer en Yaxhá -->
+            <div class="group relative bg-white/40 rounded-[3rem] overflow-hidden border border-salvia/10 hover:shadow-2xl transition-all duration-500 flex flex-col italic">
+                <div class="relative h-72 overflow-hidden">
+                    <!-- IMAGEN: Atardecer Yaxhá -->
+                    <img src="https://tikalexpedition.com/wp-content/uploads/2023/11/Yaxha-atardecer2.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110">
+                    
+                    <!-- Efecto Hilton (Itinerario Rápido) -->
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <i data-lucide="sunset" class="w-8 h-8 text-salvia mb-4"></i>
+                        <h4 class="text-xl font-titulo italic mb-4">Misticismo Maya</h4>
+                        <div class="space-y-2 text-[10px] uppercase tracking-widest opacity-80 italic font-bold">
+                            <p>12:30 PM - Salida de Flores</p>
+                            <p>05:45 PM - Puesta del Sol en Templos</p>
+                        </div>
+                    </div>
+
+                    <!-- Badge de Categoría -->
+                    <div class="absolute top-6 left-6 flex space-x-2">
+                        <span class="bg-orange-600/80 backdrop-blur-md text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter italic">Aventura</span>
+                    </div>
+                </div>
+
+                <div class="p-10 flex-1 flex flex-col justify-between font-bold">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-2 text-[9px] font-bold text-salvia uppercase italic">
+                                <i data-lucide="clock" class="w-3 h-3"></i> <span>6 Horas</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-[9px] font-bold text-salvia uppercase italic">
+                                <i data-lucide="binoculars" class="w-3 h-3"></i> <span>Baja</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold">Atardecer en Yaxhá</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed italic">Contempla la puesta del sol desde la cima del Templo 216 con una vista inigualable a la laguna.</p>
+                    </div>
+
+                    <div class="mt-10 flex justify-between items-center pt-6 border-t border-salvia/20 font-bold">
+                        <div>
+                            <p class="text-[9px] font-bold text-salvia uppercase tracking-widest italic font-bold">Inversión</p>
+                            <p class="text-2xl font-bold text-cazador italic">Q400.00</p>
+                        </div>
+                        <a href="yaxha-atardecer.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg shadow-helecho/20 italic font-bold">
+                            <i data-lucide="arrow-right" class="w-4 h-4 italic"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-cazador py-20 text-polvo text-center italic border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="font-titulo text-4xl mb-4 italic tracking-tight">TikalCoffee</h2>
+            <div class="h-[1px] w-24 bg-salvia/30 mx-auto mb-10"></div>
+            <div class="flex justify-center space-x-10 text-[10px] font-bold uppercase tracking-[0.3em] mb-12 italic font-bold">
+            </div>
+            <p class="text-[9px] text-nieve/40 uppercase tracking-widest italic font-bold">© 2024 Flores, Petén, Guatemala.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+    </script>
+</body>
+</html>

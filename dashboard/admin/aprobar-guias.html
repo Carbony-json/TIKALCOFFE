@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Guías | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: Tailwind + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Primario
+                        'helecho': '#588157', // Acento
+                        'salvia': '#A3B18A',  // Secundario
+                        'polvo': '#DAD7CD',   // Fondo
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lucide { width: 20px; height: 20px; stroke-width: 1.5px; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-cazador italic">
+
+    <!-- OVERLAY MÓVIL -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden backdrop-blur-sm"></div>
+
+    <!-- SIDEBAR (Simetría Total) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-cazador text-polvo flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0">
+        <div class="p-6 border-b border-salvia/20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-xl"><i data-lucide="coffee"></i></div>
+                <div>
+                    <h1 class="font-titulo text-xl leading-none italic font-bold">TikalCoffee</h1>
+                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold">Panel de Control</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden"><i data-lucide="x"></i></button>
+        </div>
+        
+        <nav class="flex-1 p-4 mt-6 space-y-2">
+            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="layout-dashboard"></i> <span class="text-sm">Resumen General</span>
+            </a>
+            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="home"></i> <span class="text-sm">Hospedajes</span>
+            </a>
+            <!-- Link Activo -->
+            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 bg-white/10 rounded-2xl font-semibold border-l-4 border-salvia shadow-inner">
+                <i data-lucide="users"></i> <span class="text-sm">Gestión Guías</span>
+            </a>
+            <a href="gestionar-rutas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="map"></i> <span class="text-sm">Catálogo Rutas</span>
+            </a>
+            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="message-square"></i> <span class="text-sm font-bold">Reseñas</span>
+            </a>
+        </nav>
+
+        <div class="p-6 border-t border-salvia/20">
+            <a href="../../index.html" class="flex items-center justify-center space-x-2 text-[10px] font-bold opacity-60 hover:opacity-100 p-3 bg-black/20 rounded-xl transition uppercase">
+                <i data-lucide="log-out" class="w-3 h-3"></i> <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-polvo/50">
+        
+        <!-- HEADER (Simetría Total) -->
+        <header class="bg-white h-20 px-6 md:px-8 flex justify-between items-center shadow-sm z-10 border-b border-salvia/10">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-polvo text-cazador"><i data-lucide="menu"></i></button>
+                <h2 class="hidden md:block font-titulo text-2xl italic">Control de Staff</h2>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <button class="hidden md:flex items-center space-x-2 bg-helecho text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-cazador transition shadow-lg shadow-helecho/20">
+                    <i data-lucide="user-plus" class="w-3 h-3"></i> <span>NUEVO GUÍA</span>
+                </button>
+                <div class="flex items-center space-x-3 border-l border-salvia/20 pl-6">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-[10px] font-bold text-salvia uppercase">Admin</p>
+                        <p class="text-xs font-bold italic">Ricardo Samayoa</p>
+                    </div>
+                    <div class="w-10 h-10 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold shadow-lg italic">A</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENIDO SCROLLABLE -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-10 no-scrollbar">
+            
+            <!-- SECCIÓN 1: SOLICITUDES DE VIAJEROS -->
+            <section class="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-salvia/10">
+                <div class="flex items-center justify-between mb-8 border-b border-polvo pb-4">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="bell-ring" class="text-helecho animate-bounce"></i>
+                        <h3 class="text-2xl font-titulo font-bold italic">Peticiones de Viajeros</h3>
+                    </div>
+                    <span class="text-[9px] bg-red-100 text-red-600 px-3 py-1 rounded-full font-bold uppercase tracking-widest">2 Pendientes</span>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Card de Solicitud -->
+                    <div class="bg-polvo/20 rounded-[2rem] p-6 flex flex-col lg:flex-row items-center justify-between gap-6 border border-transparent hover:border-salvia/30 transition-all">
+                        <div class="flex items-center space-x-5">
+                            <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+                                <i data-lucide="user-check" class="text-helecho"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800 italic">Carlos Gómez <span class="font-normal text-salvia italic font-bold">solicita a</span> Juan Manuel Tzul</p>
+                                <p class="text-[10px] text-cazador font-bold uppercase mt-1 italic font-bold">Ruta: Tikal Amanecer | 25 May</p>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Horario Estilizado -->
+                        <div class="flex flex-col items-center bg-white px-6 py-2 rounded-2xl shadow-sm border border-salvia/10">
+                            <label class="text-[8px] font-bold text-salvia uppercase tracking-widest mb-1 italic font-bold">Asignar Horario Final</label>
+                            <select class="bg-transparent text-xs font-bold text-cazador outline-none cursor-pointer italic">
+                                <option>04:00 AM - 11:00 AM</option>
+                                <option>06:00 AM - 01:00 PM</option>
+                            </select>
+                        </div>
+
+                        <div class="flex space-x-3">
+                            <button class="bg-helecho text-white px-6 py-3 rounded-xl text-[10px] font-bold hover:bg-cazador transition shadow-md uppercase italic">Aceptar y Asignar</button>
+                            <button class="bg-white text-salvia border border-salvia/20 px-6 py-3 rounded-xl text-[10px] font-bold hover:text-red-500 transition italic font-bold">RECHAZAR</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: EQUIPO DE TRABAJO -->
+            <section>
+                <div class="flex items-center justify-between mb-8 border-b border-salvia/20 pb-4">
+                    <h3 class="text-3xl font-titulo text-cazador italic font-bold">Staff TikalCoffee</h3>
+                    <p class="text-[10px] font-bold text-salvia uppercase tracking-widest italic font-bold">8 Guías Certificados</p>
+                </div>
+                
+                <div class="bg-white rounded-[2.5rem] shadow-sm border border-salvia/10 overflow-hidden italic">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-polvo/30 text-salvia text-[10px] uppercase tracking-[0.2em] font-bold">
+                                <tr>
+                                    <th class="px-8 py-5">Guía Responsable</th>
+                                    <th class="px-8 py-5">Especialidad</th>
+                                    <th class="px-8 py-5">Tours Mes</th>
+                                    <th class="px-8 py-5">Estado Hoy</th>
+                                    <th class="px-8 py-5 text-right">Gestión</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-polvo/30 text-sm">
+                                <tr class="hover:bg-polvo/10 transition-colors">
+                                    <td class="px-8 py-5 flex items-center space-x-4">
+                                        <img src="https://i.pravatar.cc/150?u=12" class="w-10 h-10 rounded-xl object-cover shadow-sm border-2 border-salvia/20">
+                                        <span class="font-bold">Juan Manuel Tzul</span>
+                                    </td>
+                                    <td class="px-8 py-5">
+                                        <span class="text-[10px] bg-salvia/20 text-cazador px-2 py-1 rounded font-bold uppercase italic font-bold">Arqueología</span>
+                                    </td>
+                                    <td class="px-8 py-5 font-bold text-helecho italic font-bold">14 Tours</td>
+                                    <td class="px-8 py-5">
+                                        <span class="flex items-center space-x-1 text-red-500 font-bold text-[10px] uppercase italic font-bold">
+                                            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                                            <span>Ocupado</span>
+                                        </span>
+                                    </td>
+                                    <td class="px-8 py-5 text-right">
+                                        <button class="text-helecho hover:underline text-[10px] font-bold italic font-bold flex items-center justify-end space-x-1 ml-auto">
+                                            <i data-lucide="calendar" class="w-3 h-3"></i> <span>HORARIOS</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-polvo/10 transition-colors">
+                                    <td class="px-8 py-5 flex items-center space-x-4">
+                                        <img src="https://i.pravatar.cc/150?u=22" class="w-10 h-10 rounded-xl object-cover shadow-sm border-2 border-salvia/20">
+                                        <span class="font-bold">María José Méndez</span>
+                                    </td>
+                                    <td class="px-8 py-5">
+                                        <span class="text-[10px] bg-salvia/20 text-cazador px-2 py-1 rounded font-bold uppercase italic font-bold">Naturaleza</span>
+                                    </td>
+                                    <td class="px-8 py-5 font-bold text-helecho italic font-bold">09 Tours</td>
+                                    <td class="px-8 py-5">
+                                        <span class="flex items-center space-x-1 text-green-600 font-bold text-[10px] uppercase italic font-bold">
+                                            <span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                                            <span>Disponible</span>
+                                        </span>
+                                    </td>
+                                    <td class="px-8 py-5 text-right">
+                                        <button class="text-helecho hover:underline text-[10px] font-bold italic font-bold flex items-center justify-end space-x-1 ml-auto">
+                                            <i data-lucide="calendar" class="w-3 h-3"></i> <span>HORARIOS</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

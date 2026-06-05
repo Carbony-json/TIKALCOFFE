@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostal Colonial Flores | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: Tailwind + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', 
+                        'helecho': '#588157', 
+                        'salvia': '#A3B18A',  
+                        'nieve': '#FAF9F6',
+                        'polvo': '#DAD7CD',
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; color: #3A5A40; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* CARRUSEL INFINITO */
+        #carousel-wrapper {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 300%;
+        }
+        .carousel-slide {
+            width: 100vw;
+            height: 70vh;
+            flex-shrink: 0;
+        }
+        @media (max-width: 768px) { .carousel-slide { height: 50vh; } }
+
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="italic overflow-x-hidden font-bold">
+
+    <!-- NAVBAR (SIMETRÍA TOTAL CON EL INDEX) -->
+    <nav class="fixed w-full z-[100] bg-polvo/90 backdrop-blur-md shadow-sm border-b border-salvia/30">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Izquierda: Logo -->
+            <div class="text-3xl font-titulo font-bold italic tracking-tighter text-cazador">TikalCoffee</div>
+
+            <!-- Centro: Menú PC -->
+            <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-cazador">
+                <a href="index.html" class="hover:text-helecho transition">Inicio</a>
+                <a href="airbnb-catalogo.html" class="text-helecho border-b-2 border-helecho">Hospedajes</a>
+                <a href="rutas-catalogo.html" class="hover:text-helecho transition">Rutas</a>
+                <a href="guias-directorio.html" class="hover:text-helecho transition">Staff</a>
+                <a href="dashboard/cliente/mis-reservas.html" class="hover:text-helecho transition">Mis Reservas</a>
+            </div>
+
+            <!-- Derecha: Perfil Estilo Index -->
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[9px] font-bold text-salvia uppercase leading-none mb-1 opacity-70">Bienvenido</p>
+                    <p class="text-xs font-bold text-cazador italic leading-none">Ricardo Samayoa</p>
+                </div>
+                
+                <a href="dashboard/cliente/mi-perfil.html" class="relative group block">
+                    <img src="https://i.pravatar.cc/150?u=ricardo"
+                        class="w-10 h-10 rounded-full border-2 border-helecho object-cover shadow-md aspect-square">
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-helecho border-2 border-polvo rounded-full"></span>
+                </a>
+                
+                <button onclick="toggleMenu()" class="md:hidden text-2xl text-cazador focus:outline-none ml-2">☰</button>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobileMenu" class="hidden flex-col bg-polvo border-b border-salvia p-6 space-y-4 text-center font-bold text-xs uppercase tracking-widest md:hidden italic">
+            <a href="index.html" onclick="toggleMenu()">Historia</a>
+            <a href="airbnb-catalogo.html" onclick="toggleMenu()">Hospedajes</a>
+            <a href="rutas-catalogo.html" onclick="toggleMenu()">Rutas</a>
+            <a href="guias-directorio.html" onclick="toggleMenu()">Guías</a>
+            <a href="dashboard/cliente/mis-reservas.html" onclick="toggleMenu()" class="text-helecho border-t border-salvia/30 pt-4">Mis Reservas</a>
+            <a href="dashboard/cliente/mi-perfil.html" onclick="toggleMenu()">Mi Perfil</a>
+        </div>
+    </nav>
+
+    <!-- CARRUSEL INFINITO EDGE-TO-EDGE -->
+    <div class="relative w-full overflow-hidden bg-black">
+        <div id="carousel-wrapper">
+            <!-- Foto 1: Fachada Colonial -->
+            <div class="carousel-slide relative">
+                <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1200" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+            </div>
+            <!-- Foto 2: Patio Interior -->
+            <div class="carousel-slide relative">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1200" class="w-full h-full object-cover">
+            </div>
+            <!-- Foto 3: Terraza Vista al Lago -->
+            <div class="carousel-slide relative">
+                <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=1200" class="w-full h-full object-cover">
+            </div>
+        </div>
+        <div class="absolute inset-0 flex justify-between items-center px-4 pointer-events-none">
+            <button onclick="prevSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <button onclick="nextSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl">
+                <i data-lucide="chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-6 py-16 font-bold">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            
+            <!-- DESCRIPCIÓN EXPANDIDA (IZQUIERDA) -->
+            <div class="lg:col-span-2 space-y-16 italic font-bold">
+                <div class="border-b border-salvia/20 pb-10 italic">
+                    <div class="flex items-center space-x-2 text-helecho mb-4 font-bold">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                        <span class="text-[11px] font-bold uppercase tracking-[0.3em]">Hospedaje de Autor</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-titulo text-cazador italic font-bold mb-6 leading-tight">Hostal Colonial Flores</h1>
+                    <div class="flex flex-wrap gap-6 text-xs text-salvia font-bold italic">
+                        <span>📍 San Benito - Isla de Flores, Petén</span>
+                        <span class="text-gray-300">|</span>
+                        <span>⭐ 4.5 (8 Opiniones de viajeros)</span>
+                    </div>
+                </div>
+
+                <section class="space-y-6">
+                    <h2 class="text-3xl font-titulo text-helecho italic underline decoration-salvia underline-offset-8 font-bold">Cultura y vibras locales</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg font-bold">
+                        Localizado en el epicentro de la histórica Isla de Flores, el Hostal Colonial no es solo un lugar para pernoctar, es un encuentro con la arquitectura viva de Petén. Nuestras paredes de colores vibrantes y patios interiores sombreados ofrecen el refugio perfecto tras un día de exploración en las pirámides, manteniendo la esencia de las antiguas casas coloniales restauradas.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed text-lg font-bold">
+                        La joya de la corona es nuestra terraza comunitaria, donde el aroma del café <span class="text-helecho">TikalCoffee artesanal</span> se mezcla con las vistas panorámicas del lago. Es el espacio ideal para viajeros que buscan una experiencia social auténtica, conectando con personas de todo el mundo bajo la calidez de un entorno rústico pero cuidadosamente curado.
+                    </p>
+                </section>
+
+                <!-- Amenidades -->
+                <section class="bg-white/40 p-8 md:p-12 rounded-[3rem] border border-salvia/10 shadow-sm">
+                    <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-salvia mb-10 italic">Servicios para el Mochilero</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center italic">
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="users" class="text-helecho"></i><span class="text-[10px] uppercase font-bold italic">Ambiente Social</span></div>
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="wifi" class="text-helecho"></i><span class="text-[10px] uppercase font-bold italic">Fibra Óptica</span></div>
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="map" class="text-helecho"></i><span class="text-[10px] uppercase font-bold italic">Centro Isla</span></div>
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="sun" class="text-helecho"></i><span class="text-[10px] uppercase font-bold italic">Rooftop Bar</span></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- TARJETA RESERVA + PAGO (STICKY) -->
+            <div class="relative italic font-bold">
+                <div id="booking-card" class="bg-white p-8 md:p-10 rounded-[3rem] shadow-2xl border border-salvia/10 lg:sticky lg:top-24 font-bold">
+                    
+                    <!-- PASO 1 -->
+                    <div id="step-1" class="fade-in font-bold">
+                        <p class="text-3xl font-bold text-cazador italic underline decoration-salvia mb-8">Q250.00 <span class="text-xs font-normal text-salvia">/ noche</span></p>
+                        <div class="space-y-4 mb-10 italic">
+                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner font-bold">
+                                <label class="block text-[9px] uppercase mb-1">Entrada / Salida</label>
+                                <input type="text" placeholder="Seleccionar fechas" class="w-full bg-transparent text-xs font-bold outline-none italic">
+                            </div>
+                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner font-bold">
+                                <label class="block text-[9px] uppercase mb-1">Tipo de Habitación</label>
+                                <select class="w-full bg-transparent text-xs font-bold outline-none italic font-bold"><option>Cama en Dormitorio</option><option>Habitación Privada</option></select>
+                            </div>
+                        </div>
+                        <button onclick="goToPayment()" class="w-full bg-helecho text-white py-5 rounded-[2rem] font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition uppercase text-[11px] tracking-[0.2em] underline decoration-white/30 italic">RESERVAR ESPACIO</button>
+                    </div>
+
+                    <!-- PASO 2 -->
+                    <div id="step-2" class="hidden fade-in italic font-bold">
+                        <button onclick="goToBooking()" class="text-[9px] uppercase mb-6 flex items-center hover:text-helecho transition"><i data-lucide="chevron-left" class="w-3 h-3 mr-1"></i> Volver</button>
+                        <h3 class="text-2xl font-titulo font-bold mb-6 underline decoration-salvia">Pago Seguro</h3>
+                        <form class="space-y-5 mb-10 italic">
+                            <input type="text" placeholder="Número de Tarjeta" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs font-mono italic font-bold">
+                            <div class="grid grid-cols-2 gap-4 italic font-bold">
+                                <input type="text" placeholder="MM/YY" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs italic">
+                                <input type="password" placeholder="CVV" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs italic">
+                            </div>
+                        </form>
+                        <button onclick="location.href='dashboard/cliente/mis-reservas.html'" class="w-full bg-cazador text-white py-5 rounded-[2rem] font-bold shadow-xl uppercase text-[11px] tracking-[0.2em]">PAGAR AHORA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER VERDE CAZADOR -->
+    <footer class="bg-cazador py-16 text-nieve/40 text-center text-[10px] uppercase tracking-[0.3em] font-bold italic">
+        <h2 class="font-titulo text-3xl text-nieve mb-4 normal-case italic font-bold">TikalCoffee</h2>
+        <p>© 2024 Flores, Petén. Donde la aventura se hace comunidad.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); document.getElementById('mobileMenu').classList.toggle('flex'); }
+        let currentSlide = 0; const totalSlides = 3; const wrapper = document.getElementById('carousel-wrapper');
+        const dots = document.querySelectorAll('.dot');
+        function updateCarousel() { wrapper.style.transform = `translateX(-${currentSlide * 100}vw)`; dots.forEach((dot, index) => { dot.classList.toggle('bg-white', index === currentSlide); dot.classList.toggle('bg-white/30', index !== currentSlide); }); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateCarousel(); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; updateCarousel(); }
+        function goToSlide(index) { currentSlide = index; updateCarousel(); }
+        setInterval(nextSlide, 6000);
+        function goToPayment() { document.getElementById('step-1').classList.add('hidden'); document.getElementById('step-2').classList.remove('hidden'); lucide.createIcons(); }
+        function goToBooking() { document.getElementById('step-2').classList.add('hidden'); document.getElementById('step-1').classList.remove('hidden'); lucide.createIcons(); }
+    </script>
+</body>
+</html>

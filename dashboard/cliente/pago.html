@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Pago | TikalCoffee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'selva': '#2D5A27', 'tierra': '#8B5A2B', 'arena': '#FDFBF7' },
+                    fontFamily: { 'titulo': ['Playfair Display', 'serif'], 'cuerpo': ['Montserrat', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#fcfaf7] min-h-screen text-gray-700 font-cuerpo italic">
+
+    <!-- BARRA SUPERIOR SIMPLE (Para no distraer del pago) -->
+    <nav class="bg-white py-6 border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="mis-reservas.html" class="text-xs font-bold text-gray-400 hover:text-selva transition">← VOLVER A MIS VIAJES</a>
+            <div class="flex items-center space-x-2">
+                <span class="text-selva text-xl italic font-titulo">TikalCoffee</span>
+            </div>
+            <div class="flex items-center space-x-1 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <span>Seguridad SSL</span>
+                <span class="text-green-500 text-lg">🔒</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12">
+            
+            <!-- COLUMNA IZQUIERDA: MÉTODOS DE PAGO -->
+            <div class="flex-1 space-y-8">
+                <div class="bg-white p-8 md:p-10 rounded-[3rem] shadow-sm border border-gray-100">
+                    <h2 class="text-3xl font-titulo text-selva mb-8 italic font-bold underline">Finalizar Reserva</h2>
+                    
+                    <!-- SELECCIÓN DE MÉTODO -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                        <!-- Tarjeta -->
+                        <button onclick="showTab('tarjeta')" class="flex flex-col items-center p-6 border-2 border-selva bg-selva/5 rounded-3xl transition group">
+                            <span class="text-2xl mb-2 italic">💳</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-selva italic">Tarjeta</span>
+                        </button>
+                        <!-- Transferencia -->
+                        <button onclick="showTab('transferencia')" class="flex flex-col items-center p-6 border-2 border-transparent bg-gray-50 rounded-3xl hover:border-gray-200 transition group">
+                            <span class="text-2xl mb-2 italic">🏦</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 italic group-hover:text-tierra">Transferencia</span>
+                        </button>
+                        <!-- Efectivo -->
+                        <button onclick="showTab('efectivo')" class="flex flex-col items-center p-6 border-2 border-transparent bg-gray-50 rounded-3xl hover:border-gray-200 transition group">
+                            <span class="text-2xl mb-2 italic">💵</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 italic group-hover:text-tierra">Efectivo</span>
+                        </button>
+                    </div>
+
+                    <!-- FORMULARIO: TARJETA (Default) -->
+                    <div id="form-tarjeta" class="space-y-6">
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 italic font-bold">Titular de la Tarjeta</label>
+                                <input type="text" placeholder="Nombre como aparece en la tarjeta" class="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-selva/20 outline-none italic">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 italic font-bold">Número de Tarjeta</label>
+                                <input type="text" placeholder="0000 0000 0000 0000" class="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-selva/20 outline-none font-mono">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 italic font-bold">Fecha Expiración</label>
+                                <input type="text" placeholder="MM / YY" class="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-selva/20 outline-none italic">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 italic font-bold">CVV / CVC</label>
+                                <input type="password" placeholder="***" class="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-selva/20 outline-none italic">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFO: TRANSFERENCIA (Oculto inicialmente) -->
+                    <div id="form-transferencia" class="hidden space-y-6 bg-arena/50 p-6 rounded-[2rem] border border-dashed border-tierra/20">
+                        <p class="text-xs font-bold text-selva mb-4 italic">Realiza tu transferencia a la siguiente cuenta:</p>
+                        <div class="text-sm space-y-2">
+                            <p><strong>Banco:</strong> Industrial</p>
+                            <p><strong>Cuenta:</strong> Monetaria 000-000000-0</p>
+                            <p><strong>Nombre:</strong> TikalCoffee S.A.</p>
+                        </div>
+                        <p class="text-[10px] text-gray-400 italic mt-4 italic">Envía tu comprobante vía WhatsApp una vez realizado el pago.</p>
+                    </div>
+
+                    <!-- INFO: EFECTIVO (Oculto inicialmente) -->
+                    <div id="form-efectivo" class="hidden space-y-4 bg-arena/50 p-6 rounded-[2rem] border border-dashed border-tierra/20">
+                        <p class="text-xs italic font-bold text-selva italic">¿Cómo prefieres pagar en efectivo?</p>
+                        <select class="w-full bg-white rounded-xl p-3 text-xs italic border-none focus:ring-1 focus:ring-tierra italic">
+                            <option>Pagar en oficina (Flores, Petén)</option>
+                            <option>Pagar directamente al Guía al inicio del tour</option>
+                        </select>
+                        <p class="text-[10px] text-gray-400 italic italic">Nota: Las reservas en efectivo se confirman tras la validación del personal de TikalCoffee.</p>
+                    </div>
+
+                    <!-- BOTÓN ACCIÓN -->
+                    <button class="w-full mt-10 bg-selva text-white py-5 rounded-[2rem] font-bold shadow-xl shadow-selva/20 hover:bg-tierra transition transform hover:-translate-y-1 italic underline">
+                        CONFIRMAR Y PAGAR AHORA
+                    </button>
+                </div>
+                
+                <div class="flex justify-center items-center space-x-6 opacity-30 grayscale italic">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-6">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-4">
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: RESUMEN DE ORDEN -->
+            <aside class="w-full lg:w-96">
+                <div class="bg-selva text-arena p-8 rounded-[3rem] shadow-xl sticky top-24 italic">
+                    <h3 class="text-xl font-titulo mb-6 italic underline">Tu Pedido</h3>
+                    
+                    <div class="space-y-6">
+                        <!-- Item 1 -->
+                        <div class="flex justify-between items-start border-b border-white/10 pb-4">
+                            <div>
+                                <p class="text-xs font-bold italic">Tour Amanecer en Tikal</p>
+                                <p class="text-[9px] opacity-60 uppercase italic">30 May | 1 Persona</p>
+                            </div>
+                            <span class="text-xs font-bold italic">Q350</span>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="flex justify-between items-start border-b border-white/10 pb-4">
+                            <div>
+                                <p class="text-xs font-bold italic">Casa del Lago</p>
+                                <p class="text-[9px] opacity-60 uppercase italic">01 al 04 Jun | 3 Noches</p>
+                            </div>
+                            <span class="text-xs font-bold italic">Q1,350</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t-2 border-white/20 italic">
+                        <div class="flex justify-between items-center mb-2 italic">
+                            <span class="text-xs italic">Subtotal:</span>
+                            <span class="text-xs italic">Q1,700.00</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-6 italic">
+                            <span class="text-xs italic">Comisión (3%):</span>
+                            <span class="text-xs italic">Q51.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xl font-bold italic underline">
+                            <span>TOTAL:</span>
+                            <span>Q1,751.00</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <script>
+        function showTab(type) {
+            // Ocultar todos
+            document.getElementById('form-tarjeta').classList.add('hidden');
+            document.getElementById('form-transferencia').classList.add('hidden');
+            document.getElementById('form-efectivo').classList.add('hidden');
+            
+            // Mostrar seleccionado
+            document.getElementById('form-' + type).classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>

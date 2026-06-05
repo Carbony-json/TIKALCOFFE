@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Primario
+                        'helecho': '#588157', // Acento (Botón)
+                        'salvia': '#A3B18A',  // Secundario
+                        'polvo': '#DAD7CD',   // Fondo
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        /* Estilo para que el input no tape el icono */
+        .input-password { padding-right: 2.5rem !important; }
+    </style>
+</head>
+<body class="bg-polvo min-h-screen italic">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <!-- COLUMNA IZQUIERDA: IMAGEN (Filtro verde eliminado) -->
+        <div class="hidden lg:flex lg:w-2/5 relative items-center justify-center bg-black overflow-hidden">
+            <!-- IMAGEN: Colores naturales, sin blend-overlay ni opacidad baja -->
+            <img src="https://images.trvl-media.com/place/6059480/819e7324-5a31-4cf4-9fd8-e26c424cbdcb.jpg" 
+                 class="absolute inset-0 w-full h-full object-cover scale-110 transition-transform duration-1000 hover:scale-100">
+            
+            <!-- Overlay degradado sutil para legibilidad -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+
+            <div class="relative z-10 text-white p-16 max-w-xl text-left">
+                <h2 class="text-6xl font-titulo mb-6 leading-tight italic drop-shadow-2xl">Empieza tu <br> historia</h2>
+                <p class="text-xl font-light leading-relaxed opacity-90 italic">
+                    Únete a TikalCoffee y accede a los hospedajes más exclusivos y rutas guiadas por expertos locales.
+                </p>
+                <div class="mt-10 h-[1px] w-24 bg-salvia/50"></div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: FORMULARIO -->
+        <div class="w-full lg:w-3/5 flex flex-col items-center justify-center p-8 md:p-16 bg-white min-h-screen shadow-2xl">
+            
+            <div class="w-full max-w-2xl">
+                <!-- CABECERA -->
+                <div class="mb-12 text-center lg:text-left">
+                    <div class="text-cazador font-titulo text-4xl mb-2 italic font-bold tracking-tighter">TikalCoffee</div>
+                    <h2 class="text-lg font-bold text-salvia uppercase tracking-[0.2em]">Registro de Viajero</h2>
+                    <div class="h-[1px] w-12 bg-salvia/30 mt-4 mx-auto lg:mx-0"></div>
+                </div>
+
+                <!-- FORMULARIO -->
+                <form action="login.html" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                    
+                    <div class="group">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 tracking-widest italic group-focus-within:text-cazador">Nombres</label>
+                        <input type="text" placeholder="Ej. Juan Manuel" 
+                               class="w-full px-0 py-3 bg-transparent border-b border-gray-100 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                    </div>
+
+                    <div class="group">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 tracking-widest italic group-focus-within:text-cazador">Apellidos</label>
+                        <input type="text" placeholder="Ej. Pérez Tzul" 
+                               class="w-full px-0 py-3 bg-transparent border-b border-gray-100 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                    </div>
+
+                    <div class="md:col-span-2 group">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 tracking-widest italic group-focus-within:text-cazador">Correo Electrónico</label>
+                        <input type="email" placeholder="viajero@ejemplo.com" 
+                               class="w-full px-0 py-3 bg-transparent border-b border-gray-100 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                    </div>
+
+                    <div class="md:col-span-2 group">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 tracking-widest italic group-focus-within:text-cazador">Teléfono</label>
+                        <input type="tel" placeholder="+502 0000 0000" 
+                               class="w-full px-0 py-3 bg-transparent border-b border-gray-100 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                    </div>
+
+                    <!-- CAMPO CONTRASEÑA CON OJO -->
+                    <div class="group relative">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 tracking-widest italic group-focus-within:text-cazador">Contraseña</label>
+                        <div class="relative">
+                            <input id="pass1" type="password" placeholder="••••••••" 
+                                   class="input-password w-full px-0 py-3 bg-transparent border-b border-gray-100 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                            <button type="button" onclick="togglePass('pass1', 'eye1')" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cazador p-2">
+                                <svg id="eye1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CAMPO CONFIRMAR CON OJO -->
+                    <div class="group relative">
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 tracking-widest italic group-focus-within:text-cazador">Confirmar Clave</label>
+                        <div class="relative">
+                            <input id="pass2" type="password" placeholder="••••••••" 
+                                   class="input-password w-full px-0 py-3 bg-transparent border-b border-gray-100 focus:border-cazador outline-none transition-all duration-300 italic text-sm">
+                            <button type="button" onclick="togglePass('pass2', 'eye2')" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cazador p-2">
+                                <svg id="eye2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 mt-6">
+                        <button type="submit" class="w-full bg-helecho text-white py-5 rounded-full font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition-all duration-300 transform hover:-translate-y-1 uppercase text-xs tracking-widest italic">
+                            CREAR MI CUENTA AHORA
+                        </button>
+                    </div>
+                </form>
+
+                <!-- FOOTER -->
+                <div class="mt-12 text-center lg:text-left border-t border-gray-50 pt-10">
+                    <p class="text-sm text-gray-400 mb-6 italic">
+                        ¿Ya tienes una cuenta activa? 
+                        <a href="login.html" class="text-cazador font-bold hover:underline decoration-salvia italic ml-1">Inicia sesión</a>
+                    </p>
+                    <a href="index.html" class="text-[10px] text-salvia font-bold tracking-[0.2em] uppercase hover:text-cazador transition flex items-center justify-center lg:justify-start">
+                        <span class="mr-2">←</span> Volver al inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE VISIBILIDAD -->
+    <script>
+        function togglePass(inputId, eyeId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeId);
+            
+            if (input.type === "password") {
+                input.type = "text";
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                `;
+            } else {
+                input.type = "password";
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>

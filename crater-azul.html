@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expedición Cráter Azul | TikalCoffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'cazador': '#3A5A40', 'helecho': '#588157', 'salvia': '#A3B18A', 'nieve': '#FAF9F6' },
+            fontFamily: { 'titulo': ['Cormorant Garamond', 'serif'], 'cuerpo': ['Montserrat', 'sans-serif'] } } }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        #carousel-wrapper { display: flex; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); width: 300%; }
+        .carousel-slide { width: 100vw; height: 75vh; flex-shrink: 0; }
+        @media (max-width: 768px) { .carousel-slide { height: 50vh; } }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="text-cazador italic overflow-x-hidden font-bold">
+
+    <nav class="absolute w-full z-[100] bg-gradient-to-b from-black/60 to-transparent italic font-bold">
+        <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center text-white font-bold">
+            <a href="index.html" class="text-3xl font-titulo font-bold tracking-tighter italic">TikalCoffee</a>
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+                <a href="index.html" class="hover:text-salvia transition">Inicio</a>
+                <a href="airbnb-catalogo.html" class="hover:text-salvia transition">Hospedaje</a>
+                <a href="rutas-catalogo.html" class="border-b border-white pb-1">Rutas</a>
+                <a href="guias-directorio.html" class="hover:text-salvia transition">Staff</a>
+            </div>
+            <a href="auth/login.html" class="bg-white text-cazador px-8 py-2 rounded-full text-[10px] font-bold shadow-xl hover:bg-salvia transition uppercase italic">Login</a>
+        </div>
+    </nav>
+
+    <div class="relative w-full overflow-hidden bg-black">
+        <div id="carousel-wrapper">
+            <div class="carousel-slide relative">
+                <img src="https://aprende.guatemala.com/wp-content/uploads/2017/10/Crat%C3%A9r-Azul-en-Sayaxch%C3%A9-Pet%C3%A9n.jpg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+            </div>
+            <div class="carousel-slide relative">
+                <img src="https://i0.wp.com/vinisatours.com/wp-content/uploads/2021/04/crater-azul-sayaxche-scaled.jpg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+            </div>
+            <div class="carousel-slide relative">
+                <img src="https://guatemalapuntocom.files.wordpress.com/2017/04/p1020084.jpg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/20"></div>
+            </div>
+        </div>
+        <div class="absolute inset-0 flex justify-between items-center px-4 md:px-10 pointer-events-none">
+            <button onclick="prevSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl"><i data-lucide="chevron-left"></i></button>
+            <button onclick="nextSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl"><i data-lucide="chevron-right"></i></button>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
+            <div class="dot w-3 h-3 rounded-full bg-white cursor-pointer" onclick="goToSlide(0)"></div>
+            <div class="dot w-3 h-3 rounded-full bg-white/30 cursor-pointer" onclick="goToSlide(1)"></div>
+            <div class="dot w-3 h-3 rounded-full bg-white/30 cursor-pointer" onclick="goToSlide(2)"></div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            <div class="lg:col-span-2 space-y-16">
+                <div class="border-b border-salvia/20 pb-10 italic font-bold">
+                    <div class="flex items-center space-x-2 text-blue-500 mb-4 font-bold">
+                        <i data-lucide="waves" class="w-5 h-5"></i>
+                        <span class="text-[11px] font-bold uppercase tracking-[0.3em]">Reserva Natural</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-titulo text-cazador italic font-bold mb-6">Expedición <br> Cráter Azul</h1>
+                    <div class="flex flex-wrap gap-6 text-xs text-salvia font-bold">
+                        <span class="flex items-center italic"><i data-lucide="compass" class="w-4 h-4 mr-2"></i> Navegación Río</span>
+                        <span class="flex items-center italic"><i data-lucide="anchor" class="w-4 h-4 mr-2"></i> Nivel: Bajo</span>
+                        <span class="flex items-center text-cazador underline font-bold decoration-salvia italic">⭐ 4.9 (32 Reseñas)</span>
+                    </div>
+                </div>
+
+                <section>
+                    <h2 class="text-3xl font-titulo text-helecho italic mb-6 underline decoration-salvia underline-offset-8">El Jardín Subacuático</h2>
+                    <p class="text-gray-600 leading-relaxed italic text-lg font-bold">Navegaremos por el Río La Pasión hasta llegar a un nacimiento de agua color turquesa. Cráter Azul ofrece una visibilidad única de su flora subacuática, creando un paisaje que parece de otro mundo.</p>
+                </section>
+
+                <section class="bg-white p-8 md:p-12 rounded-[3rem] border border-salvia/10 shadow-sm italic font-bold">
+                    <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-salvia mb-12 underline decoration-salvia">Agenda del Día</h3>
+                    <div class="space-y-12">
+                        <div class="flex items-start space-x-6 relative">
+                            <div class="absolute h-full w-[2px] bg-salvia/20 left-[23px] top-8"></div>
+                            <div class="w-12 h-12 rounded-2xl bg-nieve flex items-center justify-center z-10 shadow-sm"><i data-lucide="truck" class="text-helecho"></i></div>
+                            <div><span class="text-[10px] font-bold text-salvia uppercase">08:00 AM</span><h4 class="text-lg font-bold text-cazador italic">Salida desde Flores</h4><p class="text-xs text-gray-400 mt-1">Traslado terrestre hacia Sayaxché.</p></div>
+                        </div>
+                        <div class="flex items-start space-x-6">
+                            <div class="w-12 h-12 rounded-2xl bg-cazador flex items-center justify-center z-10 shadow-xl"><i data-lucide="waves" class="text-white"></i></div>
+                            <div><span class="text-[10px] font-bold text-helecho uppercase">11:00 AM</span><h4 class="text-lg font-bold text-cazador italic">Llegada al Cráter</h4><p class="text-xs text-gray-400 mt-1 italic">Tiempo libre para nadar y explorar el fondo cristalino.</p></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- TARJETA DE RESERVA (Q500) -->
+            <div class="relative">
+                <div id="booking-card" class="bg-white p-8 md:p-10 rounded-[3rem] shadow-2xl border border-salvia/10 lg:sticky lg:top-10 italic font-bold">
+                    <div id="step-1" class="fade-in">
+                        <div class="mb-8"><p class="text-3xl font-bold text-cazador italic underline decoration-salvia">Q500.00 <span class="text-xs font-normal text-salvia">/ persona</span></p></div>
+                        <div class="space-y-4 mb-10 italic font-bold">
+                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner"><label class="block text-[9px] font-bold text-salvia uppercase mb-1">Fecha</label><input type="date" class="w-full bg-transparent text-sm font-bold outline-none"></div>
+                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner"><label class="block text-[9px] font-bold text-salvia uppercase mb-1">Viajeros</label><select class="w-full bg-transparent text-sm font-bold outline-none"><option selected>2 Personas</option><option>4 Personas</option></select></div>
+                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner"><label class="block text-[9px] font-bold text-salvia uppercase mb-1">Guía</label><select class="w-full bg-transparent text-sm font-bold outline-none"><option>María José (Naturaleza)</option><option>Staff TikalCoffee</option></select></div>
+                        </div>
+                        <div class="flex justify-between text-2xl font-titulo font-bold text-cazador border-t border-salvia/10 pt-8 mb-8 underline decoration-salvia"><span>Total</span><span class="text-helecho">Q1,000.00</span></div>
+                        <button onclick="goToPayment()" class="w-full bg-helecho text-white py-5 rounded-[2rem] font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition-all transform hover:-translate-y-1 uppercase text-[11px] tracking-[0.2em] underline decoration-white/30">PROCEDER AL PAGO</button>
+                    </div>
+                    <div id="step-2" class="hidden fade-in italic font-bold">
+                        <button onclick="goToBooking()" class="text-[9px] font-bold text-salvia uppercase mb-6 flex items-center hover:text-helecho transition"><i data-lucide="chevron-left" class="w-3 h-3 mr-1"></i> Modificar</button>
+                        <h3 class="text-2xl font-titulo text-cazador font-bold mb-6 underline decoration-salvia italic font-bold">Pago con Tarjeta</h3>
+                        <form onsubmit="return false;" class="space-y-5 mb-10 italic font-bold font-bold font-bold"><div class="group italic font-bold font-bold font-bold font-bold"><label class="block text-[9px] font-bold text-salvia uppercase mb-1">Número</label><input type="text" placeholder="XXXX XXXX XXXX XXXX" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none text-sm font-mono italic font-bold font-bold"></div><div class="grid grid-cols-2 gap-6 italic font-bold italic font-bold font-bold font-bold"><div><label class="block text-[9px] font-bold text-salvia uppercase mb-1">Expira</label><input type="text" placeholder="MM/YY" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none text-sm font-bold italic font-bold"></div><div><label class="block text-[9px] font-bold text-salvia uppercase mb-1">CVV</label><input type="password" placeholder="***" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none text-sm font-bold italic"></div></div></form>
+                        <button onclick="location.href='dashboard/cliente/mis-reservas.html'" class="w-full bg-cazador text-white py-5 rounded-[2rem] font-bold shadow-xl shadow-cazador/30 hover:bg-helecho transition-all transform hover:-translate-y-1 uppercase text-[11px] tracking-[0.2em] underline decoration-white/30 italic font-bold">FINALIZAR PAGO</button>
+                    </div>
+                    <p class="text-[9px] text-center text-gray-400 mt-8 uppercase tracking-widest italic font-bold">TikalCoffee Boutique</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-cazador py-16 text-nieve/40 text-center text-[10px] italic tracking-[0.3em] uppercase italic font-bold">
+        <h2 class="font-titulo text-3xl text-nieve mb-4 normal-case tracking-normal italic font-bold">TikalCoffee</h2>
+        <p>© 2024 Flores, Petén. Guatemala.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        let currentSlide = 0; const totalSlides = 3; const wrapper = document.getElementById('carousel-wrapper'); const dots = document.querySelectorAll('.dot');
+        function updateCarousel() { wrapper.style.transform = `translateX(-${currentSlide * 100}vw)`; dots.forEach((dot, index) => { dot.classList.toggle('bg-white', index === currentSlide); dot.classList.toggle('bg-white/30', index !== currentSlide); }); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateCarousel(); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; updateCarousel(); }
+        function goToSlide(index) { currentSlide = index; updateCarousel(); }
+        setInterval(nextSlide, 6000);
+        function goToPayment() { document.getElementById('step-1').classList.add('hidden'); document.getElementById('step-2').classList.remove('hidden'); lucide.createIcons(); }
+        function goToBooking() { document.getElementById('step-2').classList.add('hidden'); document.getElementById('step-1').classList.remove('hidden'); lucide.createIcons(); }
+    </script>
+</body>
+</html>

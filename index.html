@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikalCoffee | Rutas, Guías y Hospedajes</title>
+
+    <!-- Google Fonts: Opción 1 -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons para el botón de flecha -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Cazador (Primario)
+                        'helecho': '#588157', // Helecho (Acento)
+                        'salvia': '#A3B18A',  // Salvia Seca (Secundario)
+                        'polvo': '#DAD7CD',   // Blanco Limpio
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #DAD7CD;
+            color: #3A5A40;
+        }
+
+        .font-titulo {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .map-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .group:hover .map-overlay {
+            opacity: 1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .carousel-item {
+            transition: opacity 1.2s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-polvo font-cuerpo italic overflow-x-hidden text-cazador">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-[100] bg-polvo/90 backdrop-blur-md shadow-sm border-b border-salvia/30">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-3xl font-titulo font-bold italic tracking-tighter text-cazador">TikalCoffee</div>
+
+            <!-- Menú PC -->
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-cazador">
+                <a href="#historia" class="hover:text-helecho transition">Historia</a>
+                <a href="#hospedajes" class="hover:text-helecho transition">Hospedajes</a>
+                <a href="#rutas" class="hover:text-helecho transition">Rutas</a>
+                <a href="#guias" class="hover:text-helecho transition">Guías</a>
+                <!-- NOTA: Se agrega "Mis Reservas" también en PC -->
+                <a href="dashboard/cliente/mis-reservas.html">Mis Reservas</a>
+            </div>
+
+            <!-- PERFIL Y HAMBURGUESA -->
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[9px] font-bold text-salvia uppercase">Bienvenido</p>
+                    <p class="text-xs font-bold text-cazador italic">Ricardo Samayoa</p>
+                </div>
+                
+                <!-- CORRECCIÓN FOTO: Visible en móvil y escritorio, siempre circular -->
+                <a href="dashboard/cliente/mi-perfil.html" class="relative group block">
+                    <img src="https://i.pravatar.cc/150?u=ricardo"
+                        class="w-10 h-10 rounded-full border-2 border-helecho object-cover shadow-md aspect-square">
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-helecho border-2 border-polvo rounded-full"></span>
+                </a>
+                
+                <button onclick="toggleMenu()" class="md:hidden text-2xl text-cazador focus:outline-none">☰</button>
+            </div>
+        </div>
+
+        <!-- MENÚ MÓVIL DESPLEGABLE -->
+        <div id="mobileMenu"
+            class="hidden flex-col bg-polvo border-b border-salvia p-6 space-y-4 text-center font-bold text-xs uppercase tracking-widest md:hidden italic">
+            <a href="#historia" onclick="toggleMenu()">Historia</a>
+            <a href="#hospedajes" onclick="toggleMenu()">Hospedajes</a>
+            <a href="#rutas" onclick="toggleMenu()">Rutas</a>
+            <a href="#guias" onclick="toggleMenu()">Guías</a>
+            <!-- NOTA: Apartado "Mis Reservas" agregado al menú móvil -->
+            <a href="dashboard/cliente/mis-reservas.html" onclick="toggleMenu()">Mis Reservas</a>
+            <a href="dashboard/cliente/mi-perfil.html" onclick="toggleMenu()">Mi Perfil</a>
+        </div>
+    </nav>
+
+    <!-- HERO CAROUSEL -->
+    <header id="inicio" class="relative h-[85vh] w-full overflow-hidden">
+        <div id="carousel-container">
+            <div class="carousel-item absolute inset-0 opacity-100">
+                <div class="absolute inset-0 bg-cazador/40 z-10"></div>
+                <img src="https://culturaguate.gob.gt/wp-content/uploads/2021/09/Tikal-F1.jpg"
+                    class="w-full h-full object-cover">
+            </div>
+            <div class="carousel-item absolute inset-0 opacity-0">
+                <div class="absolute inset-0 bg-cazador/40 z-10"></div>
+                <img src="https://i0.wp.com/craterazul.com/wp-content/uploads/2023/09/lago-peten-itza-flores-el-remate.jpg?fit=1920%2C1080&ssl=1"
+                    class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <div class="relative z-20 flex flex-col items-center justify-center h-full text-center text-white px-4">
+            <h1 class="text-6xl md:text-8xl font-titulo mb-4 italic leading-tight drop-shadow-2xl">La esencia de <br> la
+                tierra maya</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light italic opacity-90">Hospedajes únicos y
+                aventuras inolvidables.</p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#rutas"
+                    class="bg-helecho px-10 py-4 rounded-full font-bold shadow-xl hover:bg-cazador transition-all transform hover:-translate-y-1 text-xs tracking-widest uppercase italic">Ver
+                    Rutas</a>
+                <a href="#hospedajes"
+                    class="bg-white/10 backdrop-blur-md border border-white/30 px-10 py-4 rounded-full font-bold hover:bg-white hover:text-cazador transition text-xs tracking-widest uppercase italic">Ver
+                    Hospedajes</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HISTORIA -->
+    <section id="historia" class="py-24 container mx-auto px-6 italic">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
+            <div class="order-1 md:order-2">
+                <span class="text-helecho font-bold text-[10px] tracking-[0.3em] uppercase italic font-bold">Descubre más</span>
+                <h2 class="text-5xl font-titulo text-cazador mb-6 leading-tight italic">Un paraíso <br> entre aguas</h2>
+                <p class="text-gray-600 leading-relaxed mb-6 italic font-bold">
+                    Flores es una ciudad turística ubicada en una isla del Lago Petén Itzá...
+                </p>
+                <div class="h-1 w-20 bg-helecho"></div>
+            </div>
+
+            <div class="relative group order-2 md:order-1 max-w-md mx-auto w-full">
+                <div class="absolute -inset-4 border-2 border-salvia rounded-[3rem] transition-all group-hover:inset-0">
+                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Flores_Island.jpg"
+                    class="relative rounded-[2.5rem] shadow-2xl w-full h-80 object-cover transition-transform duration-500 group-hover:scale-[0.98]"
+                    alt="Flores Petén">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-1">
+                <h2 class="text-5xl font-titulo text-cazador mb-6 leading-tight italic">Tradición <br> Maya Viva</h2>
+                <p class="text-gray-600 leading-relaxed mb-6 italic">La cultura maya en Petén representa una de las herencias más importantes de Guatemala...</p>
+            </div>
+            <div class="relative group order-2">
+                <div class="absolute -inset-4 border-2 border-salvia rounded-[3rem] transition-all group-hover:inset-0">
+                </div>
+                <img src="https://arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/HB323YYSE5ADHDURWLOSLMI5XE"
+                    class="relative rounded-[2.5rem] shadow-2xl w-full h-96 object-cover" alt="Guías Petén">
+            </div>
+        </div>
+    </section>
+
+<!-- SECCIÓN HOSPEDAJES: 3 APARTADOS CON REDIRECCIÓN -->
+    <section id="hospedajes" class="py-24 bg-white/40 border-y border-salvia/20 italic text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-titulo text-cazador mb-4 italic underline decoration-salvia underline-offset-8">Hospedajes de Autor</h2>
+            <p class="text-salvia font-bold text-[10px] uppercase tracking-[0.3em] mb-16 italic font-bold">Pasa el mouse para ver la ubicación</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <!-- HOSPEDAJE 1: ISLA DE FLORES -->
+                <div class="group relative h-[500px] overflow-hidden rounded-[3rem] shadow-2xl">
+                    <!-- IMAGEN: Fachada Casa 1 -->
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <span class="text-4xl mb-4">📍</span>
+                        <p class="text-xl font-titulo italic mb-2 italic font-bold">Isla de Flores</p>
+                        <button onclick="location.href='casa-lago-detalle.html'"
+                            class="bg-helecho text-white px-6 py-2 rounded-full font-bold text-[10px] uppercase italic hover:bg-salvia transition-colors">Disponibilidad</button>
+                    </div>
+
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/90 to-transparent p-8 text-left">
+                        <h3 class="text-white text-2xl font-titulo italic italic font-bold">Casa del Lago Premium</h3>
+                        <p class="text-salvia font-bold text-sm mt-1 italic italic font-bold">Q450 / noche</p>
+                    </div>
+                </div>
+
+                <!-- HOSPEDAJE 2: EL REMATE -->
+                <div class="group relative h-[500px] overflow-hidden rounded-[3rem] shadow-2xl">
+                    <!-- IMAGEN: Fachada Casa 2 -->
+                    <img src="https://images.unsplash.com/photo-1512918766674-ed62b90eba9c?q=80&w=800"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <span class="text-4xl mb-4">📍</span>
+                        <p class="text-xl font-titulo italic mb-2 italic font-bold">El Remate</p>
+                        <button onclick="location.href='airbnb-detalle.html'"
+                            class="bg-helecho text-white px-6 py-2 rounded-full font-bold text-[10px] uppercase italic hover:bg-salvia transition-colors">Disponibilidad</button>
+                    </div>
+
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/90 to-transparent p-8 text-left">
+                        <h3 class="text-white text-2xl font-titulo italic italic font-bold">Villa Selva Maya</h3>
+                        <p class="text-salvia font-bold text-sm mt-1 italic italic font-bold">Q600 / noche</p>
+                    </div>
+                </div>
+
+                <!-- HOSPEDAJE 3: SAN BENITO -->
+                <div class="group relative h-[500px] overflow-hidden rounded-[3rem] shadow-2xl">
+                    <!-- IMAGEN: Fachada Casa 3 -->
+                    <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=800"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
+                        <span class="text-4xl mb-4">📍</span>
+                        <p class="text-xl font-titulo italic mb-2 italic font-bold">San Benito</p>
+                        <button onclick="location.href='hostal-colonial-detalle.html'"
+                            class="bg-helecho text-white px-6 py-2 rounded-full font-bold text-[10px] uppercase italic hover:bg-salvia transition-colors">Disponibilidad</button>
+                    </div>
+
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/90 to-transparent p-8 text-left">
+                        <h3 class="text-white text-2xl font-titulo italic italic font-bold">Hostal Colonial Flores</h3>
+                        <p class="text-salvia font-bold text-sm mt-1 italic italic font-bold">Q250 / noche</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BOTÓN PRINCIPAL DE CATÁLOGO -->
+            <button onclick="location.href='airbnb-catalogo.html'"
+                class="mt-16 border-2 border-cazador text-cazador px-10 py-3 rounded-full font-bold hover:bg-cazador hover:text-white transition text-[11px] tracking-widest uppercase italic italic font-bold shadow-xl">
+                Ver todos los hospedajes
+            </button>
+        </div>
+    </section>
+
+    <!-- SECCIÓN RUTAS -->
+    <section id="rutas" class="py-24 container mx-auto px-6 italic font-bold">
+        <div class="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end mb-12 text-center md:text-left">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-titulo text-cazador mb-2 italic italic font-bold">Rutas de Aventura</h2>
+                <p class="text-salvia font-bold uppercase tracking-widest text-[10px] mt-2 italic font-bold">Explora el legado Maya</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- RUTA 1 -->
+            <div class="group bg-white/50 rounded-[2.5rem] overflow-hidden border border-salvia/20 hover:shadow-2xl transition-all">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/0a/5b/2a/19.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-helecho/90 backdrop-blur-md text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase italic font-bold">Arqueología</span>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-titulo text-2xl mb-4 italic text-cazador italic font-bold">Amanecer en Tikal</h3>
+                    <div class="flex justify-between items-center border-t border-salvia/20 pt-6 font-bold">
+                        <span class="text-cazador font-bold italic font-bold">Q350.00</span>
+                        <a href="rutas-detalle.html" class="text-helecho font-bold text-xs underline font-bold italic font-bold">Detalles +</a>
+                    </div>
+                </div>
+            </div>
+            <!-- RUTA 2 -->
+            <div class="group bg-white/50 rounded-[2.5rem] overflow-hidden border border-salvia/20 hover:shadow-2xl transition-all">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://craterazul.com/wp-content/themes/yootheme/cache/86/tour-al-crater-azul-86e2561c.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                    <span class="absolute top-4 left-4 bg-blue-600/80 backdrop-blur-md text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase italic font-bold">Naturaleza</span>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-titulo text-2xl mb-4 italic text-cazador italic font-bold">Cráter Azul</h3>
+                    <div class="flex justify-between items-center border-t border-salvia/20 pt-6 font-bold">
+                        <span class="text-cazador font-bold italic font-bold">Q500.00</span>
+                        <a href="crater-azul.html" class="text-helecho font-bold text-xs underline font-bold italic font-bold">Detalles +</a>
+                    </div>
+                </div>
+            </div>
+            <!-- RUTA 3 -->
+            <div class="group bg-white/50 rounded-[2.5rem] overflow-hidden border border-salvia/20 hover:shadow-2xl transition-all">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="https://tikalexpedition.com/wp-content/uploads/2023/11/Yaxha-atardecer2.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-orange-600/80 backdrop-blur-md text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase italic font-bold">Aventura</span>
+                </div>
+                <div class="p-8 font-bold">
+                    <h3 class="font-titulo text-2xl mb-4 italic text-cazador italic font-bold">Atardecer Yaxhá</h3>
+                    <div class="flex justify-between items-center border-t border-salvia/20 pt-6 font-bold">
+                        <span class="text-cazador font-bold italic font-bold">Q400.00</span>
+                        <a href="yaxha-atardecer.html" class="text-helecho font-bold text-xs underline font-bold italic font-bold">Detalles +</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÓN VER TODAS -->
+        <div class="mt-16 flex justify-center">
+            <a href="rutas-catalogo.html" 
+               class="bg-helecho text-white px-12 py-4 rounded-full font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition-all transform hover:-translate-y-1 uppercase text-xs tracking-[0.2em] italic flex items-center space-x-3">
+               <span>Ver todas las rutas</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN STAFF -->
+    <section id="guias" class="py-24 bg-cazador text-polvo text-center italic font-bold">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-titulo mb-4">Nuestro Staff</h2>
+            <p class="opacity-60 mb-20 text-sm max-w-xl mx-auto italic font-bold">Expertos locales apasionados por la historia.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12">
+                <div class="group">
+                    <img src="https://i.pravatar.cc/150?u=1"
+                        class="rounded-full w-32 h-32 mx-auto mb-6 transition border-4 border-salvia/20 shadow-2xl aspect-square object-cover">
+                    <h3 class="font-titulo text-xl font-bold italic font-bold">Juan Manuel</h3>
+                    <p class="text-[10px] text-salvia font-bold uppercase tracking-widest mb-2">Arqueología</p>
+                    <div class="text-yellow-500 text-xs">★★★★★</div>
+                </div>
+            </div>
+            <a href="guias-directorio.html" class="mt-16 bg-helecho text-white px-10 py-3 rounded-full font-bold hover:bg-salvia transition inline-block text-[11px] tracking-widest uppercase italic shadow-xl">Conoce a todos los guías</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-cazador pt-16 pb-8 text-polvo text-center italic border-t border-white/5">
+        <div class="max-w-2xl mx-auto px-6">
+            <h2 class="font-titulo text-4xl mb-4 italic font-bold">TikalCoffee</h2>
+            <div class="h-[1px] w-24 bg-salvia/30 mx-auto mb-8"></div>
+            <p class="text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mb-10 italic font-bold">Flores · Petén · Guatemala</p>
+            <p class="text-[9px] opacity-30 tracking-widest uppercase font-bold italic font-bold">© 2024 TikalCoffee. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        // CARRUSEL
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        function showNextImage() {
+            items[currentIndex].classList.replace('opacity-100', 'opacity-0');
+            currentIndex = (currentIndex + 1) % items.length;
+            items[currentIndex].classList.replace('opacity-0', 'opacity-100');
+        }
+        setInterval(showNextImage, 5000);
+
+        // MENÚ MÓVIL
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+    </script>
+</body>
+</html>

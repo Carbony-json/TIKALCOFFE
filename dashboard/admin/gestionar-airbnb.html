@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Hospedajes | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 (Cormorant + Montserrat) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: Tailwind + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', // Verde Primario
+                        'helecho': '#588157', // Acento
+                        'salvia': '#A3B18A',  // Secundario
+                        'polvo': '#DAD7CD',   // Fondo
+                        'nieve': '#FAF9F6',   // Blanco Limpio
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lucide { width: 20px; height: 20px; stroke-width: 1.5px; }
+        
+        /* Animación para nuevas etiquetas */
+        .tag-appear { animation: scaleIn 0.3s ease-out; }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-cazador italic font-bold">
+
+    <!-- OVERLAY MÓVIL -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden backdrop-blur-sm"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-cazador text-nieve flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0">
+        <div class="p-6 border-b border-salvia/20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-xl"><i data-lucide="coffee"></i></div>
+                <div>
+                    <h1 class="font-titulo text-xl leading-none italic font-bold">TikalCoffee</h1>
+                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold font-cuerpo">Panel de Control</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-salvia"><i data-lucide="x"></i></button>
+        </div>
+        
+        <nav class="flex-1 p-4 mt-6 space-y-2">
+            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="bar-chart-3"></i> <span class="text-sm font-bold">Resumen General</span>
+            </a>
+            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 bg-white/10 rounded-2xl font-semibold border-l-4 border-salvia shadow-inner">
+                <i data-lucide="home"></i> <span class="text-sm font-bold">Hospedajes</span>
+            </a>
+            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="users"></i> <span class="text-sm font-bold">Gestión Guías</span>
+            </a>
+            <a href="gestionar-rutas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="map"></i> <span class="text-sm font-bold">Catálogo Rutas</span>
+            </a>
+            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+                <i data-lucide="message-square"></i> <span class="text-sm font-bold">Reseñas</span>
+            </a>
+        </nav>
+
+        <div class="p-6 border-t border-salvia/20 text-center font-bold">
+            <a href="../../index.html" class="flex items-center justify-center space-x-2 text-[10px] font-bold opacity-60 hover:opacity-100 p-3 bg-black/20 rounded-xl transition uppercase">
+                <i data-lucide="log-out" class="w-3 h-3"></i> <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-polvo/20">
+        
+        <!-- HEADER -->
+        <header class="bg-white h-20 px-6 md:px-8 flex justify-between items-center shadow-sm z-10 border-b border-salvia/10 italic font-bold">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-polvo text-cazador italic font-bold"><i data-lucide="menu"></i></button>
+                <h2 class="hidden md:block font-titulo text-2xl font-bold">Inventario de Hospedajes</h2>
+            </div>
+            
+            <div class="flex items-center space-x-4 italic font-bold">
+                <div class="hidden sm:block text-right font-bold">
+                    <p class="text-[10px] font-bold text-salvia uppercase">Administrador</p>
+                    <p class="text-xs font-bold text-cazador">Ricardo Samayoa</p>
+                </div>
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold shadow-lg shadow-helecho/20 italic font-bold">A</div>
+            </div>
+        </header>
+
+        <!-- CONTENIDO -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-10 no-scrollbar italic font-bold">
+            
+            <!-- SECCIÓN 1: FORMULARIO DINÁMICO -->
+            <section class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-salvia/10 italic font-bold">
+                <div class="flex items-center justify-between mb-10 border-b border-polvo pb-6">
+                    <div class="flex items-center space-x-3 italic font-bold">
+                        <i data-lucide="plus-circle" class="text-helecho"></i>
+                        <h3 class="text-3xl font-titulo font-bold italic">Añadir Nueva Propiedad</h3>
+                    </div>
+                    <p class="text-[10px] text-salvia font-bold uppercase tracking-widest">Paso 1: Información básica</p>
+                </div>
+
+                <form onsubmit="return false;" class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <!-- Columna 1: Textos y Amenidades Dinámicas -->
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest">Nombre de la Casa</label>
+                            <input type="text" placeholder="Ej. Casa del Lago Premium" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none transition-all text-sm italic font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest">Precio por Noche (Q)</label>
+                            <input type="number" placeholder="450.00" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none transition-all text-sm font-mono italic font-bold">
+                        </div>
+                        
+                        <!-- APARTADO DE AMENIDADES DINÁMICAS -->
+                        <div class="space-y-4 pt-4">
+                            <label class="block text-[10px] font-bold text-salvia uppercase tracking-widest underline decoration-salvia">Agregar Amenidad / Servicio</label>
+                            <div class="flex space-x-2">
+                                <input type="text" id="amenityInput" placeholder="Ej. Jacuzzi, WiFi, AC..." class="flex-1 bg-polvo/20 border-none rounded-xl px-4 py-2 text-xs italic font-bold outline-none focus:ring-1 focus:ring-helecho">
+                                <button type="button" onclick="handleAddAmenity()" class="bg-helecho text-white p-2 rounded-xl shadow-md hover:bg-cazador transition-all">
+                                    <i data-lucide="plus"></i>
+                                </button>
+                            </div>
+                            <!-- Contenedor de Tags -->
+                            <div id="amenitiesContainer" class="flex flex-wrap gap-2 pt-2">
+                                <!-- Las etiquetas aparecerán aquí dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna 2: Descripción -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest">Reseña o Descripción Larga</label>
+                        <textarea rows="9" placeholder="Cuéntanos el encanto de este lugar..." class="w-full bg-polvo/10 border-none rounded-[2rem] p-6 text-sm focus:ring-2 focus:ring-helecho/10 outline-none resize-none transition-all italic font-bold"></textarea>
+                    </div>
+
+                    <!-- Columna 3: Multimedia -->
+                    <div class="space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="p-6 border-2 border-dashed border-polvo rounded-[2.5rem] text-center group hover:border-helecho transition-colors cursor-pointer italic font-bold">
+                                <i data-lucide="image" class="mx-auto mb-2 text-salvia group-hover:text-helecho transition-colors"></i>
+                                <span class="block text-[10px] font-bold text-salvia uppercase italic font-bold">Foto de Fachada</span>
+                            </div>
+                            <div class="p-6 border-2 border-dashed border-polvo rounded-[2.5rem] text-center group hover:border-helecho transition-colors cursor-pointer italic font-bold">
+                                <i data-lucide="map-pin" class="mx-auto mb-2 text-salvia group-hover:text-helecho transition-colors italic font-bold"></i>
+                                <span class="block text-[10px] font-bold text-salvia uppercase italic font-bold">Imagen de Mapa</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-helecho text-white py-5 rounded-2xl font-bold text-[10px] shadow-xl shadow-helecho/20 uppercase tracking-widest italic font-bold underline decoration-white/30">
+                            PUBLICAR HOSPEDAJE
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- SECCIÓN 2: LISTADO -->
+            <section>
+                <div class="flex items-center justify-between mb-8 border-b border-salvia/20 pb-4">
+                    <h3 class="text-3xl font-titulo font-bold italic">Propiedades Activas</h3>
+                    <span class="text-[10px] font-bold text-salvia uppercase tracking-widest">Total: 12 unidades</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+                    <div class="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-salvia/10 group">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="map-preview absolute inset-0 bg-cazador/95 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center p-6 text-center text-white transition-opacity duration-300 italic font-bold">
+                                <i data-lucide="map-pin" class="w-10 h-10 text-salvia mb-4"></i>
+                                <p class="text-sm font-bold italic">Ubicación Verificada</p>
+                                <p class="text-[10px] text-polvo/70 mt-2 uppercase tracking-widest">Isla de Flores, Petén</p>
+                            </div>
+                        </div>
+                        <div class="p-8 italic font-bold">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-titulo text-2xl font-bold">Casa del Lago</h4>
+                                <span class="bg-polvo/50 text-cazador px-3 py-1 rounded-full text-[10px] font-bold">Q450/n</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-6 border-t border-polvo italic font-bold">
+                                <div class="flex space-x-6 text-[10px] font-bold">
+                                    <button class="text-helecho hover:underline flex items-center space-x-1 italic font-bold"><i data-lucide="edit"></i> <span>EDITAR</span></button>
+                                    <button class="text-red-400 hover:underline flex items-center space-x-1 italic font-bold"><i data-lucide="trash"></i> <span>BAJA</span></button>
+                                </div>
+                                <span class="text-[9px] bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold uppercase">Activo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Lógica para añadir amenidades dinámicamente
+        function handleAddAmenity() {
+            const input = document.getElementById('amenityInput');
+            const container = document.getElementById('amenitiesContainer');
+            const text = input.value.trim();
+
+            if (text !== "") {
+                const tag = document.createElement('div');
+                tag.className = "tag-appear bg-helecho/10 text-cazador px-3 py-1.5 rounded-full border border-helecho/20 flex items-center space-x-2 text-[10px] font-bold italic";
+                tag.innerHTML = `
+                    <i data-lucide="check" class="w-3 h-3 text-helecho"></i>
+                    <span>${text}</span>
+                    <button type="button" onclick="this.parentElement.remove()" class="text-red-400 hover:text-red-600 ml-1 text-xs">×</button>
+                `;
+                container.appendChild(tag);
+                input.value = "";
+                lucide.createIcons(); // Recarga los iconos para que aparezca el "check"
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
