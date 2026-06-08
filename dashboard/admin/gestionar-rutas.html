@@ -44,6 +44,8 @@
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
+        .notification-dot { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 0% { transform: scale(0.95); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.7; } }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden text-cazador italic font-bold">
@@ -51,35 +53,42 @@
     <!-- OVERLAY MÓVIL -->
     <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden backdrop-blur-sm"></div>
 
-    <!-- SIDEBAR (Simetría Total) -->
+    <!-- SIDEBAR (Simetría Total con Index Admin) -->
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-cazador text-nieve flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0">
         <div class="p-6 border-b border-salvia/20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="bg-white/10 p-2 rounded-xl"><i data-lucide="coffee"></i></div>
                 <div>
                     <h1 class="font-titulo text-xl leading-none italic font-bold">TikalCoffee</h1>
-                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold">Panel de Control</span>
+                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold font-cuerpo">Panel de Control</span>
                 </div>
             </div>
             <button onclick="toggleSidebar()" class="lg:hidden text-salvia"><i data-lucide="x"></i></button>
         </div>
         
         <nav class="flex-1 p-4 mt-6 space-y-2 font-cuerpo">
-            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
-                <i data-lucide="bar-chart-3"></i> <span class="text-sm font-bold">Resumen General</span>
+            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="layout-dashboard"></i> <span class="text-sm">Resumen General</span>
             </a>
-            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
-                <i data-lucide="home"></i> <span class="text-sm font-bold">Hospedajes</span>
+            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="home"></i> <span class="text-sm">Hospedajes</span>
             </a>
-            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
-                <i data-lucide="users"></i> <span class="text-sm font-bold">Gestión Guías</span>
+            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="users"></i> <span class="text-sm">Gestión Guías</span>
             </a>
-            <!-- Link Activo -->
+            <!-- Link Activo: Catálogo Rutas -->
             <a href="gestionar-rutas.html" class="flex items-center space-x-3 p-3 bg-white/10 rounded-2xl font-semibold border-l-4 border-salvia shadow-inner italic">
-                <i data-lucide="map"></i> <span class="text-sm font-bold">Catálogo Rutas</span>
+                <i data-lucide="map"></i> <span class="text-sm">Catálogo Rutas</span>
             </a>
-            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
-                <i data-lucide="message-square"></i> <span class="text-sm font-bold">Reseñas</span>
+            <!-- Nuevo apartado de Notificaciones integrado -->
+            <a href="notificaciones.html" class="flex items-center justify-between p-3 hover:bg-white/5 rounded-2xl transition group italic">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="bell"></i> <span class="text-sm">Notificaciones</span>
+                </div>
+                <span class="bg-red-500 text-white text-[8px] px-1.5 py-0.5 rounded-full notification-dot font-data">3</span>
+            </a>
+            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="message-square"></i> <span class="text-sm">Reseñas</span>
             </a>
         </nav>
 
@@ -93,19 +102,23 @@
     <!-- ÁREA PRINCIPAL -->
     <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-polvo/20 font-bold">
         
-        <!-- HEADER (Simetría Total) -->
+        <!-- HEADER (Simetría Total con Index Admin) -->
         <header class="bg-white h-20 px-6 md:px-8 flex justify-between items-center shadow-sm z-10 border-b border-salvia/10 italic">
             <div class="flex items-center space-x-4">
-                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-polvo text-cazador font-bold"><i data-lucide="menu"></i></button>
-                <h2 class="hidden md:block font-titulo text-2xl font-bold">Configuración de Rutas</h2>
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-nieve text-cazador font-bold"><i data-lucide="menu"></i></button>
+                <h2 class="hidden md:block font-titulo text-2xl">Configuración de Rutas</h2>
             </div>
             
             <div class="flex items-center space-x-4 italic font-bold">
-                <div class="hidden sm:block text-right font-bold">
+                <!-- Badge de Caja idéntico al Index -->
+                <div class="bg-helecho/10 p-2 rounded-full px-4 text-[10px] font-bold text-helecho border border-helecho/20 font-data uppercase tracking-widest">
+                    CAJA HOY: Q24,500.00
+                </div>
+                <div class="hidden sm:block text-right">
                     <p class="text-[10px] font-bold text-salvia uppercase">Administrador</p>
                     <p class="text-xs font-bold text-cazador">Ricardo Samayoa</p>
                 </div>
-                <div class="w-10 h-10 md:w-12 md:h-12 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold shadow-lg shadow-helecho/20 italic font-bold">A</div>
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold shadow-lg shadow-helecho/20">A</div>
             </div>
         </header>
 
@@ -117,41 +130,40 @@
                 <div class="mb-10 border-b border-polvo pb-6 flex justify-between items-end">
                     <div>
                         <h3 class="text-3xl font-titulo font-bold text-cazador italic leading-none">Crear Itinerario</h3>
-                        <p class="text-[10px] text-salvia font-bold mt-2 uppercase tracking-widest italic">Diseña una nueva experiencia de aventura</p>
+                        <p class="text-[10px] text-salvia font-bold mt-2 uppercase tracking-widest italic font-bold">Diseña una nueva experiencia de aventura</p>
                     </div>
                 </div>
 
                 <form onsubmit="return false;" class="space-y-12">
-                    <!-- Datos Básicos -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                         <div class="md:col-span-2 group">
-                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest italic font-bold">Nombre de la Experiencia</label>
-                            <input type="text" placeholder="Ej. Amanecer Místico en Tikal" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-3 outline-none transition-all italic text-sm">
+                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest italic font-bold font-bold">Nombre de la Experiencia</label>
+                            <input type="text" placeholder="Ej. Amanecer Místico en Tikal" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-3 outline-none transition-all italic text-sm font-bold">
                         </div>
                         <div class="group">
-                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest italic font-bold">Precio por Persona (Q)</label>
-                            <input type="number" placeholder="350.00" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-3 outline-none transition-all italic text-sm font-mono font-bold">
+                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest italic font-bold font-bold">Precio por Persona (Q)</label>
+                            <input type="number" placeholder="350.00" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-3 outline-none transition-all italic text-sm font-data font-bold">
                         </div>
                     </div>
 
                     <!-- Multimedia -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                        <div class="p-8 border-2 border-dashed border-polvo rounded-[2rem] text-center hover:border-helecho transition-colors cursor-pointer group">
+                        <div class="p-8 border-2 border-dashed border-polvo rounded-[2rem] text-center hover:border-helecho transition-colors cursor-pointer group italic font-bold">
                             <i data-lucide="images" class="mx-auto mb-3 text-salvia group-hover:text-helecho transition-colors"></i>
                             <p class="text-[10px] font-bold text-salvia uppercase">Galería de la Ruta</p>
                         </div>
-                        <div class="p-8 bg-polvo/20 rounded-[2rem] border border-salvia/10 relative group cursor-pointer overflow-hidden text-center">
+                        <div class="p-8 bg-polvo/20 rounded-[2rem] border border-salvia/10 relative group cursor-pointer overflow-hidden text-center italic font-bold">
                             <i data-lucide="navigation-2" class="mx-auto mb-3 text-salvia"></i>
-                            <p class="text-[10px] font-bold text-salvia uppercase tracking-widest">Trazo del Recorrido</p>
+                            <p class="text-[10px] font-bold text-salvia uppercase tracking-widest font-bold">Trazo del Recorrido</p>
                         </div>
                     </div>
 
                     <!-- CRONOLOGÍA DINÁMICA -->
-                    <div>
-                        <div class="flex items-center justify-between mb-8 italic font-bold">
+                    <div class="italic font-bold">
+                        <div class="flex items-center justify-between mb-8">
                             <div class="flex items-center space-x-2">
                                 <i data-lucide="clock" class="text-salvia w-4 h-4"></i>
-                                <h4 class="text-xs font-bold text-salvia uppercase tracking-widest italic font-bold underline decoration-salvia">Cronología y Paradas</h4>
+                                <h4 class="text-xs font-bold text-salvia uppercase tracking-widest italic underline decoration-salvia font-bold">Cronología y Paradas</h4>
                             </div>
                         </div>
                         
@@ -159,24 +171,24 @@
                             <!-- Parada Inicial Fija -->
                             <div class="flex items-start space-x-4 relative item-appear italic font-bold">
                                 <div class="absolute h-full w-[2px] bg-polvo left-[87px] top-6"></div>
-                                <input type="text" value="04:30 AM" class="w-24 bg-polvo/30 border-none rounded-lg p-2 text-[10px] font-bold text-cazador outline-none text-center font-data">
+                                <input type="text" value="04:30 AM" class="w-24 bg-polvo/30 border-none rounded-lg p-2 text-[10px] font-bold text-cazador outline-none text-center font-data font-bold italic font-bold">
                                 <div class="w-4 h-4 rounded-full bg-helecho mt-2 shadow-lg shadow-helecho/30 z-10"></div>
-                                <input type="text" placeholder="Punto de reunión e inicio..." class="flex-1 bg-transparent border-b border-polvo focus:border-helecho py-1 outline-none text-xs italic">
+                                <input type="text" placeholder="Punto de reunión e inicio..." class="flex-1 bg-transparent border-b border-polvo focus:border-helecho py-1 outline-none text-xs italic font-bold font-bold">
                             </div>
                         </div>
 
-                        <button type="button" onclick="handleAddStop()" class="mt-8 ml-32 flex items-center space-x-1 text-[10px] font-bold text-helecho hover:text-cazador transition italic font-bold uppercase underline decoration-helecho/30">
+                        <button type="button" onclick="handleAddStop()" class="mt-8 ml-32 flex items-center space-x-1 text-[10px] font-bold text-helecho hover:text-cazador transition italic uppercase underline decoration-helecho/30 font-bold">
                             <i data-lucide="plus-circle" class="w-3 h-3"></i> <span>Añadir nueva parada</span>
                         </button>
                     </div>
 
                     <!-- SERVICIOS DINÁMICOS (TAGS) -->
-                    <div class="bg-polvo/20 p-8 rounded-[2rem] border border-salvia/10 italic font-bold">
-                        <label class="block text-[10px] font-bold text-salvia uppercase mb-4 tracking-widest underline decoration-helecho">Servicios Incluidos</label>
+                    <div class="bg-polvo/20 p-8 rounded-[2rem] border border-salvia/10 italic font-bold font-bold">
+                        <label class="block text-[10px] font-bold text-salvia uppercase mb-4 tracking-widest underline decoration-helecho font-bold italic font-bold">Servicios Incluidos</label>
                         
-                        <div class="flex space-x-2 mb-6 italic font-bold">
-                            <input type="text" id="serviceInput" placeholder="Ej. Transporte, Almuerzo, Entradas..." class="flex-1 bg-white border-none rounded-xl px-4 py-2 text-xs italic font-bold outline-none focus:ring-1 focus:ring-helecho">
-                            <button type="button" onclick="handleAddService()" class="bg-helecho text-white p-2 rounded-xl shadow-md hover:bg-cazador transition-all">
+                        <div class="flex space-x-2 mb-6 italic font-bold font-bold">
+                            <input type="text" id="serviceInput" placeholder="Ej. Transporte, Almuerzo, Entradas..." class="flex-1 bg-white border-none rounded-xl px-4 py-2 text-xs font-bold outline-none focus:ring-1 focus:ring-helecho italic font-bold">
+                            <button type="button" onclick="handleAddService()" class="bg-helecho text-white p-2 rounded-xl shadow-md hover:bg-cazador transition-all font-bold">
                                 <i data-lucide="plus"></i>
                             </button>
                         </div>
@@ -186,8 +198,8 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-end pt-4">
-                        <button class="bg-helecho text-white px-12 py-4 rounded-2xl font-bold text-xs hover:bg-cazador transition shadow-xl shadow-helecho/20 uppercase tracking-[0.2em] italic underline decoration-white/30 font-bold">
+                    <div class="flex justify-end pt-4 italic font-bold font-bold">
+                        <button class="bg-helecho text-white px-12 py-4 rounded-2xl font-bold text-xs hover:bg-cazador transition shadow-xl shadow-helecho/20 uppercase tracking-[0.2em] underline decoration-white/30 font-bold italic font-bold">
                             Publicar Ruta Completa
                         </button>
                     </div>
@@ -204,13 +216,13 @@
         function handleAddStop() {
             const container = document.getElementById('stopsContainer');
             const newStop = document.createElement('div');
-            newStop.className = "flex items-start space-x-4 relative item-appear italic font-bold";
+            newStop.className = "flex items-start space-x-4 relative item-appear italic font-bold font-bold";
             newStop.innerHTML = `
-                <div class="absolute h-full w-[2px] bg-polvo left-[87px] top-6 italic font-bold"></div>
-                <input type="text" placeholder="Horario" class="w-24 bg-polvo/30 border-none rounded-lg p-2 text-[10px] font-bold text-cazador outline-none text-center font-data">
+                <div class="absolute h-full w-[2px] bg-polvo left-[87px] top-6"></div>
+                <input type="text" placeholder="Horario" class="w-24 bg-polvo/30 border-none rounded-lg p-2 text-[10px] font-bold text-cazador outline-none text-center font-data font-bold">
                 <div class="w-4 h-4 rounded-full bg-salvia mt-2 shadow-md z-10"></div>
-                <input type="text" placeholder="Descripción de la actividad..." class="flex-1 bg-transparent border-b border-polvo focus:border-helecho py-1 outline-none text-xs italic">
-                <button onclick="this.parentElement.remove()" class="text-red-400 hover:text-red-600 ml-2 font-data text-sm">×</button>
+                <input type="text" placeholder="Descripción de la actividad..." class="flex-1 bg-transparent border-b border-polvo focus:border-helecho py-1 outline-none text-xs font-bold italic">
+                <button onclick="this.parentElement.remove()" class="text-red-400 hover:text-red-600 ml-2 font-data text-sm font-bold">×</button>
             `;
             container.appendChild(newStop);
         }

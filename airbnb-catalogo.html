@@ -21,6 +21,7 @@
                         'helecho': '#588157', // Acento
                         'salvia': '#A3B18A',  // Secundario
                         'nieve': '#FAF9F6',   // Blanco Limpio
+                        'polvo': '#DAD7CD',   // Fondo sutil
                     },
                     fontFamily: {
                         'titulo': ['Cormorant Garamond', 'serif'],
@@ -31,124 +32,183 @@
         }
     </script>
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; color: #3A5A40; }
         .font-titulo { font-family: 'Cormorant Garamond', serif; }
         .map-overlay { opacity: 0; transition: all 0.5s ease-in-out; }
         .group:hover .map-overlay { opacity: 1; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         html { scroll-behavior: smooth; }
+        /* Montserrat para números */
+        .font-data { font-family: 'Montserrat', sans-serif; font-style: normal; }
     </style>
 </head>
-<body class="text-cazador italic overflow-x-hidden">
+<body class="text-cazador italic overflow-x-hidden font-bold">
 
-    <!-- NAVBAR CONSISTENTE -->
-    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-salvia/20">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center italic">
-            <a href="index.html" class="text-3xl font-titulo font-bold tracking-tighter italic">TikalCoffee</a>
+    <!-- NAVBAR CONSISTENTE (Simetría Total con Index) -->
+    <nav class="fixed w-full z-[100] bg-polvo/90 backdrop-blur-md shadow-sm border-b border-salvia/30">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center italic">
             
-            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] italic">
+            <!-- Izquierda: Logo -->
+            <a href="index.html" class="text-3xl font-titulo font-bold tracking-tighter italic text-cazador">TikalCoffee</a>
+            
+            <!-- Centro: Menú PC -->
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-cazador">
                 <a href="index.html" class="hover:text-helecho transition">Inicio</a>
-                <a href="airbnb-catalogo.html" class="text-helecho border-b-2 border-helecho">Hospedaje</a>
+                <a href="airbnb-catalogo.html" class="text-helecho border-b-2 border-helecho">Hospedajes</a>
                 <a href="rutas-catalogo.html" class="hover:text-helecho transition">Rutas</a>
                 <a href="guias-directorio.html" class="hover:text-helecho transition">Staff</a>
+                <a href="dashboard/cliente/mis-reservas.html" class="hover:text-helecho transition border-l border-salvia/30 pl-4 font-bold">Mis Reservas</a>
             </div>
 
-            <div class="flex items-center space-x-4 italic">
-                <a href="auth/login.html" class="bg-cazador text-white px-8 py-2 rounded-full text-[10px] font-bold shadow-lg hover:bg-helecho transition uppercase tracking-widest italic">Login</a>
-                <button onclick="toggleMenu()" class="md:hidden text-2xl">☰</button>
+            <!-- Derecha: Perfil y Hamburguesa -->
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block font-bold">
+                    <p class="text-[9px] font-bold text-salvia uppercase leading-none mb-1 opacity-70 italic font-bold">Bienvenido</p>
+                    <p class="text-xs font-bold text-cazador italic leading-none font-bold">Ricardo Samayoa</p>
+                </div>
+                
+                <a href="dashboard/cliente/mi-perfil.html" class="relative group block">
+                    <img src="https://i.pravatar.cc/150?u=ricardo"
+                        class="w-10 h-10 rounded-full border-2 border-helecho object-cover shadow-md aspect-square">
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-helecho border-2 border-polvo rounded-full font-bold"></span>
+                </a>
+                
+                <button onclick="toggleMenu()" class="md:hidden text-2xl text-cazador focus:outline-none ml-2">☰</button>
             </div>
         </div>
-        <!-- Menú Móvil -->
-        <div id="mobileMenu" class="hidden flex-col bg-white border-b border-salvia/20 p-6 space-y-4 text-center font-bold text-xs uppercase tracking-widest md:hidden">
-            <a href="index.html">Inicio</a>
-            <a href="airbnb-catalogo.html">Hospedaje</a>
-            <a href="rutas-catalogo.html">Rutas</a>
-            <a href="guias-directorio.html">Staff</a>
+
+        <!-- MENÚ MÓVIL DESPLEGABLE -->
+        <div id="mobileMenu"
+            class="hidden flex-col bg-polvo border-b border-salvia/30 p-8 space-y-6 text-center font-bold text-sm uppercase tracking-widest md:hidden italic">
+            <a href="index.html" onclick="toggleMenu()">Historia</a>
+            <a href="airbnb-catalogo.html" onclick="toggleMenu()">Hospedajes</a>
+            <a href="rutas-catalogo.html" onclick="toggleMenu()">Rutas</a>
+            <a href="guias-directorio.html" onclick="toggleMenu()">Guías</a>
+            <a href="dashboard/cliente/mis-reservas.html" onclick="toggleMenu()" class="text-helecho border-t border-salvia/20 pt-4">Mis Reservas</a>
+            <a href="dashboard/cliente/mi-perfil.html" onclick="toggleMenu()">Mi Perfil</a>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6 py-32 italic font-bold">
         
         <!-- ENCABEZADO DE SECCIÓN -->
-        <header class="mb-20 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-10">
-            <div class="max-w-2xl">
+        <header class="mb-20 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-10 italic font-bold">
+            <div class="max-w-2xl italic font-bold">
                 <span class="text-helecho font-bold text-[10px] tracking-[0.4em] uppercase italic">Estancias Boutique</span>
-                <h1 class="text-5xl md:text-7xl font-titulo italic mt-4 leading-tight underline decoration-salvia underline-offset-8">Refugios con <br> Alma de Tierra</h1>
-                <p class="text-sm text-gray-500 mt-6 leading-relaxed max-w-lg italic">Descubre nuestra colección exclusiva de casas y hospedajes diseñados para el descanso y la conexión con Petén.</p>
+                <h1 class="text-5xl md:text-7xl font-titulo italic mt-4 leading-tight underline decoration-salvia underline-offset-8 font-bold">Refugios con <br> Alma de Tierra</h1>
+                <p class="text-sm text-gray-500 mt-6 leading-relaxed max-w-lg italic font-bold">Nuestra colección curada de estancias en Petén, donde la arquitectura local se encuentra con el confort moderno.</p>
             </div>
             
-            <!-- FILTROS MINIMALISTAS -->
-            <div class="flex items-center space-x-3 bg-white p-2 rounded-2xl border border-salvia/20 shadow-sm">
-                <i data-lucide="sliders-horizontal" class="w-4 h-4 ml-2 text-salvia"></i>
-                <select class="bg-transparent text-[10px] font-bold uppercase py-2 pr-8 outline-none cursor-pointer italic">
-                    <option>Todas las ubicaciones</option>
+            <!-- FILTROS -->
+            <div class="flex items-center space-x-3 bg-white p-2 rounded-2xl border border-salvia/20 shadow-sm italic font-bold">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4 ml-2 text-salvia font-bold"></i>
+                <select class="bg-transparent text-[10px] font-bold uppercase py-2 pr-8 outline-none cursor-pointer italic font-bold">
+                    <option>Todo Petén</option>
                     <option>Isla de Flores</option>
                     <option>El Remate</option>
                 </select>
             </div>
         </header>
 
-        <!-- GRID DE HOSPEDAJES -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <!-- GRID DE HOSPEDAJES (3 APARTADOS) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 italic font-bold">
             
-            <!-- Card 1 -->
+            <!-- CARD 1: CASA DEL LAGO -->
             <div class="group relative bg-white rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
-                <div class="relative h-80 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105">
-                    
-                    <!-- Efecto Hilton -->
-                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white">
-                        <i data-lucide="map-pin" class="w-10 h-10 text-salvia mb-4"></i>
-                        <h4 class="text-2xl font-titulo italic mb-2">Isla de Flores</h4>
-                        <p class="text-[10px] uppercase tracking-widest opacity-70 italic font-bold">Ubicación verificada por TikalCoffee</p>
-                        <div class="mt-6 h-[1px] w-12 bg-salvia/30"></div>
-                        <button class="mt-6 text-[9px] font-bold uppercase underline tracking-widest italic">Ver mapa</button>
+                <div class="relative h-80 overflow-hidden font-bold">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 font-bold">
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white italic font-bold">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-salvia mb-4 italic font-bold"></i>
+                        <h4 class="text-2xl font-titulo italic mb-2 font-bold italic font-bold">Isla de Flores</h4>
+                        <p class="text-[10px] uppercase tracking-widest opacity-70 italic font-bold italic font-bold">Cerca del malecón central</p>
                     </div>
-
-                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
-                        <p class="text-[10px] font-bold text-cazador italic font-bold">⭐ 4.9</p>
+                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm italic font-bold">
+                        <p class="text-[10px] font-bold text-cazador italic font-bold italic font-bold">⭐ 4.9</p>
                     </div>
                 </div>
-
                 <div class="p-10 flex-1 flex flex-col justify-between italic font-bold">
                     <div>
                         <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold leading-tight">Casa del Lago Premium</h3>
                         <p class="text-[13px] text-gray-500 leading-relaxed italic mb-6">Suite de lujo con materiales sostenibles y terraza privada frente al agua.</p>
-                        
-                        <div class="flex items-center space-x-4 opacity-40">
-                            <i data-lucide="wifi" class="w-4 h-4"></i>
-                            <i data-lucide="wind" class="w-4 h-4"></i>
-                            <i data-lucide="coffee" class="w-4 h-4"></i>
-                        </div>
+                        <div class="flex items-center space-x-4 opacity-40 font-bold"><i data-lucide="wifi" class="w-4 h-4 font-bold"></i><i data-lucide="wind" class="w-4 h-4 font-bold"></i><i data-lucide="coffee" class="w-4 h-4 font-bold"></i></div>
                     </div>
-
                     <div class="mt-10 flex justify-between items-center pt-8 border-t border-gray-50 italic font-bold">
-                        <div>
-                            <p class="text-[9px] font-bold text-salvia uppercase tracking-widest font-bold">Desde</p>
-                            <p class="text-2xl font-bold text-cazador italic font-bold">Q450.00</p>
-                        </div>
-                        <a href="airbnb-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg italic font-bold">
-                            <i data-lucide="arrow-up-right" class="w-5 h-5 italic font-bold"></i>
-                        </a>
+                        <div><p class="text-[9px] font-bold text-salvia uppercase tracking-widest font-bold font-bold">Desde</p><p class="text-2xl font-bold text-cazador font-data italic font-bold font-bold">Q450.00</p></div>
+                        <a href="casa-lago-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg italic font-bold font-bold"><i data-lucide="arrow-up-right" class="w-5 h-5 italic font-bold"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- Puedes añadir más cards aquí siguiendo el mismo patrón -->
+            <!-- CARD 2: VILLA SELVA MAYA -->
+            <div class="group relative bg-white rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col italic font-bold">
+                <div class="relative h-80 overflow-hidden font-bold">
+                    <img src="https://images.unsplash.com/photo-1512918766674-ed62b90eba9c?q=80&w=800" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 font-bold">
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white italic font-bold">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-salvia mb-4 italic font-bold"></i>
+                        <h4 class="text-2xl font-titulo italic mb-2 font-bold italic font-bold">El Remate</h4>
+                        <p class="text-[10px] uppercase tracking-widest opacity-70 italic font-bold italic font-bold">Santuario natural en la selva</p>
+                    </div>
+                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm italic font-bold">
+                        <p class="text-[10px] font-bold text-cazador italic font-bold italic font-bold font-bold italic font-bold">⭐ 4.8</p>
+                    </div>
+                </div>
+                <div class="p-10 flex-1 flex flex-col justify-between italic font-bold">
+                    <div>
+                        <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold leading-tight italic font-bold">Villa Selva Maya</h3>
+                        <p class="text-[13px] text-gray-500 leading-relaxed italic mb-6 italic font-bold">Un refugio privado rodeado de ceibas gigantes y piscina privada infinity.</p>
+                        <div class="flex items-center space-x-4 opacity-40 font-bold italic font-bold"><i data-lucide="waves" class="w-4 h-4 font-bold"></i><i data-lucide="shield-check" class="w-4 h-4 font-bold"></i><i data-lucide="wifi" class="w-4 h-4 font-bold"></i></div>
+                    </div>
+                    <div class="mt-10 flex justify-between items-center pt-8 border-t border-gray-50 italic font-bold">
+                        <div><p class="text-[9px] font-bold text-salvia uppercase tracking-widest font-bold font-bold font-bold">Desde</p><p class="text-2xl font-bold text-cazador font-data italic font-bold font-bold font-bold">Q600.00</p></div>
+                        <a href="airbnb-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg italic font-bold font-bold"><i data-lucide="arrow-up-right" class="w-5 h-5 italic font-bold"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: HOSTAL COLONIAL -->
+            <div class="group relative bg-white rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col italic font-bold">
+                <div class="relative h-80 overflow-hidden font-bold">
+                    <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1200" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 font-bold">
+                    <div class="map-overlay absolute inset-0 bg-cazador/95 flex flex-col items-center justify-center p-8 text-center text-white italic font-bold">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-salvia mb-4 italic font-bold"></i>
+                        <h4 class="text-2xl font-titulo italic mb-2 font-bold italic font-bold">San Benito</h4>
+                        <p class="text-[10px] uppercase tracking-widest opacity-70 italic font-bold italic font-bold">Cultura y vibras coloniales</p>
+                    </div>
+                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm italic font-bold">
+                        <p class="text-[10px] font-bold text-cazador italic font-bold italic font-bold font-bold italic font-bold">⭐ 4.5</p>
+                    </div>
+                </div>
+                <div class="p-10 flex-1 flex flex-col justify-between italic font-bold">
+                    <div>
+                        <h3 class="text-3xl font-titulo text-cazador mb-4 italic font-bold leading-tight italic font-bold">Hostal Colonial Flores</h3>
+                        <p class="text-[13px] text-gray-500 leading-relaxed italic mb-6 italic font-bold">Arquitectura histórica y el mejor ambiente social en el corazón de la isla.</p>
+                        <div class="flex items-center space-x-4 opacity-40 font-bold italic font-bold italic font-bold"><i data-lucide="users" class="w-4 h-4 font-bold"></i><i data-lucide="sun" class="w-4 h-4 font-bold"></i><i data-lucide="coffee" class="w-4 h-4 font-bold"></i></div>
+                    </div>
+                    <div class="mt-10 flex justify-between items-center pt-8 border-t border-gray-50 italic font-bold">
+                        <div><p class="text-[9px] font-bold text-salvia uppercase tracking-widest font-bold font-bold font-bold font-bold">Desde</p><p class="text-2xl font-bold text-cazador font-data italic font-bold font-bold font-bold font-bold">Q250.00</p></div>
+                        <a href="hostal-colonial-detalle.html" class="bg-helecho text-white p-4 rounded-2xl hover:bg-cazador transition-all shadow-lg italic font-bold font-bold italic font-bold"><i data-lucide="arrow-up-right" class="w-5 h-5 italic font-bold"></i></a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </main>
 
     <!-- FOOTER VERDE CAZADOR (Simetría Total) -->
-    <footer class="bg-cazador pt-20 pb-10 text-nieve text-center italic border-t border-white/5">
-        <div class="max-w-4xl mx-auto px-6 italic font-bold">
-            <h2 class="font-titulo text-4xl text-nieve mb-4 italic tracking-tight">TikalCoffee</h2>
-            <div class="h-[1px] w-20 bg-salvia/30 mx-auto mb-10"></div>
+    <footer class="bg-cazador pt-20 pb-10 text-nieve text-center italic border-t border-white/5 font-bold">
+        <div class="max-w-4xl mx-auto px-6 italic font-bold font-bold font-bold font-bold">
+            <h2 class="font-titulo text-4xl text-nieve mb-4 italic tracking-tight font-bold font-bold italic font-bold italic font-bold">TikalCoffee</h2>
+            <div class="h-[1px] w-20 bg-salvia/30 mx-auto mb-10 italic font-bold font-bold font-bold font-bold font-bold"></div>
             
-            <div class="flex justify-center space-x-8 text-[11px] font-bold uppercase tracking-[0.3em] text-salvia mb-12 italic">
+            <div class="flex justify-center space-x-8 text-[11px] font-bold uppercase tracking-[0.3em] text-salvia mb-12 italic font-bold font-bold font-bold font-bold">
+                <a href="airbnb-catalogo.html" class="hover:text-nieve transition font-bold italic font-bold font-bold font-bold">Hospedajes</a>
+                <span class="opacity-20">•</span>
+                <a href="rutas-catalogo.html" class="hover:text-nieve transition font-bold italic font-bold font-bold font-bold">Rutas</a>
+                <span class="opacity-20">•</span>
+                <a href="#" class="hover:text-nieve transition font-bold italic font-bold font-bold font-bold">Café de Origen</a>
             </div>
             
-            <p class="text-[9px] text-nieve/40 uppercase tracking-widest italic font-bold">© 2024 Flores, Petén, Guatemala.</p>
+            <p class="text-[9px] text-nieve/40 uppercase tracking-widest italic font-bold font-bold font-bold font-bold">© 2024 Flores, Petén, Guatemala.</p>
         </div>
     </footer>
 

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones | TikalCoffee</title>
+    
+    <!-- Google Fonts: Opción 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: Tailwind + Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cazador': '#3A5A40', 
+                        'helecho': '#588157', 
+                        'salvia': '#A3B18A',  
+                        'nieve': '#FAF9F6',
+                        'polvo': '#DAD7CD',
+                    },
+                    fontFamily: {
+                        'titulo': ['Cormorant Garamond', 'serif'],
+                        'cuerpo': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
+        .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        .font-data { font-family: 'Montserrat', sans-serif; font-style: normal; }
+        #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lucide { width: 18px; height: 18px; stroke-width: 1.5px; }
+        
+        /* Pulso de notificación en el icono de la campana */
+        .notification-pulse { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-cazador italic font-bold">
+
+    <!-- OVERLAY MÓVIL -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden backdrop-blur-sm"></div>
+
+    <!-- SIDEBAR (Simetría con el resto del panel) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-cazador text-nieve flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0">
+        <div class="p-6 border-b border-salvia/20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 italic">
+                <div class="bg-white/10 p-2 rounded-xl italic">
+                    <i data-lucide="coffee" class="text-salvia"></i>
+                </div>
+                <div>
+                    <h1 class="font-titulo text-xl leading-none font-bold">TikalCoffee</h1>
+                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold font-cuerpo">Admin Staff</span>
+                </div>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-salvia"><i data-lucide="x"></i></button>
+        </div>
+        
+        <nav class="flex-1 p-4 mt-6 space-y-2 font-cuerpo">
+            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
+                <i data-lucide="layout-dashboard"></i> <span class="text-sm">Resumen General</span>
+            </a>
+            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
+                <i data-lucide="home"></i> <span class="text-sm">Hospedajes</span>
+            </a>
+            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
+                <i data-lucide="users"></i> <span class="text-sm">Gestión Guías</span>
+            </a>
+            <a href="gestionar-rutas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
+                <i data-lucide="map"></i> <span class="text-sm">Catálogo Rutas</span>
+            </a>
+            <!-- Link Activo: Notificaciones -->
+            <a href="notificaciones.html" class="flex items-center justify-between p-3 bg-white/10 rounded-2xl font-semibold border-l-4 border-salvia shadow-inner italic font-bold">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="bell" class="notification-pulse"></i> <span class="text-sm">Notificaciones</span>
+                </div>
+                <span class="bg-red-500 text-white text-[8px] px-1.5 py-0.5 rounded-full font-data">3</span>
+            </a>
+            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic">
+                <i data-lucide="message-square"></i> <span class="text-sm">Reseñas</span>
+            </a>
+        </nav>
+
+        <div class="p-6 border-t border-salvia/20">
+            <a href="../../index.html" class="flex items-center justify-center space-x-2 text-[10px] font-bold opacity-60 hover:opacity-100 p-3 bg-black/20 rounded-xl transition uppercase font-cuerpo">
+                <i data-lucide="log-out" class="w-3 h-3"></i> <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-polvo/20">
+        
+        <!-- HEADER (Simetría Total) -->
+        <header class="bg-white h-20 px-6 md:px-8 flex justify-between items-center shadow-sm z-10 border-b border-salvia/10 italic">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-nieve text-cazador italic font-bold"><i data-lucide="menu"></i></button>
+                <h2 class="hidden md:block font-titulo text-2xl font-bold">Centro de Alertas</h2>
+            </div>
+            
+            <div class="flex items-center space-x-4 italic font-bold">
+                <div class="bg-red-50 text-red-600 p-2 rounded-full px-4 text-[9px] font-bold uppercase tracking-widest border border-red-100 italic">
+                    Prioridad Alta: 3
+                </div>
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold italic shadow-lg">A</div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 no-scrollbar italic font-bold">
+            
+            <!-- LISTADO DE ALERTAS (REQUERIMIENTO 6) -->
+            <div class="space-y-4">
+                
+                <!-- Notificación 1: Hospedaje -->
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-salvia/10 flex flex-col lg:flex-row justify-between gap-6 group hover:shadow-xl transition-all duration-500 italic">
+                    <div class="flex items-start space-x-5 italic">
+                        <div class="w-14 h-14 bg-salvia/20 rounded-2xl flex items-center justify-center text-cazador shrink-0">
+                            <i data-lucide="home" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-titulo font-bold text-cazador italic">Confirmación de Hospedaje</h4>
+                            <p class="text-xs text-gray-500 mt-1 italic">El cliente <span class="text-helecho font-bold italic">Ricardo Samayoa</span> solicita Casa del Lago.</p>
+                            <div class="flex space-x-4 mt-4 text-[10px] font-data font-bold text-salvia uppercase italic">
+                                <span class="flex items-center space-x-1"><i data-lucide="calendar" class="w-3 h-3"></i> <span>01 - 04 JUN</span></span>
+                                <span class="flex items-center space-x-1"><i data-lucide="credit-card" class="w-3 h-3"></i> <span>Q1,350.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 italic font-bold">
+                        <button class="bg-helecho text-white px-6 py-3 rounded-xl text-[10px] font-bold hover:bg-cazador transition uppercase italic font-bold shadow-lg shadow-helecho/20">Validar Pago</button>
+                        <button class="bg-polvo/20 text-salvia p-3 rounded-xl hover:text-red-500 transition italic font-bold"><i data-lucide="trash-2"></i></button>
+                    </div>
+                </div>
+
+                <!-- Notificación 2: Ruta -->
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-salvia/10 flex flex-col lg:flex-row justify-between gap-6 group hover:shadow-xl transition-all duration-500 italic">
+                    <div class="flex items-start space-x-5 italic">
+                        <div class="w-14 h-14 bg-salvia/20 rounded-2xl flex items-center justify-center text-cazador shrink-0">
+                            <i data-lucide="map" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-titulo font-bold text-cazador italic">Asignación de Guía Pendiente</h4>
+                            <p class="text-xs text-gray-500 mt-1 italic">Ruta Amanecer en Tikal para el cliente <span class="text-helecho font-bold italic">Ana Lucía</span>.</p>
+                            <div class="flex space-x-4 mt-4 text-[10px] font-data font-bold text-salvia uppercase italic font-bold">
+                                <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3 h-3"></i> <span>2 PAX</span></span>
+                                <span class="flex items-center space-x-1"><i data-lucide="clock" class="w-3 h-3"></i> <span>04:00 AM</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 italic font-bold">
+                        <button class="bg-helecho text-white px-6 py-3 rounded-xl text-[10px] font-bold hover:bg-cazador transition uppercase italic font-bold shadow-lg shadow-helecho/20">Confirmar Staff</button>
+                        <button class="bg-polvo/20 text-salvia p-3 rounded-xl hover:text-red-500 transition italic font-bold"><i data-lucide="trash-2"></i></button>
+                    </div>
+                </div>
+
+                <!-- Notificación 3: Mensaje Web -->
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-salvia/10 flex flex-col lg:flex-row justify-between gap-6 group hover:shadow-xl transition-all duration-500 italic">
+                    <div class="flex items-start space-x-5 italic font-bold">
+                        <div class="w-14 h-14 bg-helecho/10 rounded-2xl flex items-center justify-center text-helecho shrink-0">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-titulo font-bold text-cazador italic">Nueva Consulta de Cliente</h4>
+                            <p class="text-xs text-gray-500 mt-1 italic font-bold">"¿Tienen disponibilidad de última hora para mañana?"</p>
+                            <p class="text-[9px] text-salvia font-bold uppercase mt-3 italic font-bold italic">Enviado por: Juan P. | Hace 10 min</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 italic font-bold">
+                        <button class="bg-cazador text-white px-6 py-3 rounded-xl text-[10px] font-bold hover:bg-helecho transition uppercase italic shadow-lg">Responder</button>
+                    </div>
+                </div>
+
+                <!-- Estado Final -->
+                <div class="py-12 text-center opacity-30 italic font-bold italic font-bold">
+                    <i data-lucide="check-circle-2" class="w-12 h-12 mx-auto mb-4 text-salvia"></i>
+                    <p class="text-xs uppercase tracking-[0.3em]">Fin de las notificaciones recientes</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

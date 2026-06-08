@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Guías | TikalCoffee</title>
+    <title>Gestión de Staff | TikalCoffee</title>
     
     <!-- Google Fonts: Opción 1 -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -17,10 +17,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'cazador': '#3A5A40', // Verde Primario
-                        'helecho': '#588157', // Acento
-                        'salvia': '#A3B18A',  // Secundario
-                        'polvo': '#DAD7CD',   // Fondo
+                        'cazador': '#3A5A40', 
+                        'helecho': '#588157', 
+                        'salvia': '#A3B18A',  
+                        'nieve': '#FAF9F6',
+                        'polvo': '#DAD7CD',
                     },
                     fontFamily: {
                         'titulo': ['Cormorant Garamond', 'serif'],
@@ -34,180 +35,211 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         body { font-family: 'Montserrat', sans-serif; background-color: #FAF9F6; }
         .font-titulo { font-family: 'Cormorant Garamond', serif; }
+        .font-data { font-family: 'Montserrat', sans-serif; font-style: normal; }
         #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .lucide { width: 20px; height: 20px; stroke-width: 1.5px; }
+        
+        .tag-appear { animation: scaleIn 0.3s ease-out; }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .notification-dot { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 0% { transform: scale(0.95); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.7; } }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden text-cazador italic">
+<body class="flex h-screen overflow-hidden text-cazador italic font-bold">
 
     <!-- OVERLAY MÓVIL -->
     <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden backdrop-blur-sm"></div>
 
-    <!-- SIDEBAR (Simetría Total) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-cazador text-polvo flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0">
+    <!-- SIDEBAR (Simetría Total con Index Admin) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-cazador text-nieve flex flex-col shadow-2xl transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0">
         <div class="p-6 border-b border-salvia/20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-white/10 p-2 rounded-xl"><i data-lucide="coffee"></i></div>
+            <div class="flex items-center space-x-3 italic font-bold">
+                <div class="bg-white/10 p-2 rounded-xl italic font-bold"><i data-lucide="coffee" class="text-salvia italic font-bold"></i></div>
                 <div>
                     <h1 class="font-titulo text-xl leading-none italic font-bold">TikalCoffee</h1>
-                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold">Panel de Control</span>
+                    <span class="text-[9px] opacity-60 uppercase tracking-widest font-bold font-cuerpo">Gestión Staff</span>
                 </div>
             </div>
-            <button onclick="toggleSidebar()" class="lg:hidden"><i data-lucide="x"></i></button>
+            <button onclick="toggleSidebar()" class="lg:hidden text-salvia italic font-bold"><i data-lucide="x" class="italic font-bold"></i></button>
         </div>
         
-        <nav class="flex-1 p-4 mt-6 space-y-2">
-            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
-                <i data-lucide="layout-dashboard"></i> <span class="text-sm">Resumen General</span>
+        <nav class="flex-1 p-4 mt-6 space-y-2 italic font-bold">
+            <a href="index.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="bar-chart-3"></i> <span class="text-sm font-bold">Resumen General</span>
             </a>
-            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
-                <i data-lucide="home"></i> <span class="text-sm">Hospedajes</span>
+            <a href="gestionar-airbnb.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="home"></i> <span class="text-sm font-bold">Hospedajes</span>
             </a>
             <!-- Link Activo -->
-            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 bg-white/10 rounded-2xl font-semibold border-l-4 border-salvia shadow-inner">
-                <i data-lucide="users"></i> <span class="text-sm">Gestión Guías</span>
+            <a href="aprobar-guias.html" class="flex items-center space-x-3 p-3 bg-white/10 rounded-2xl font-semibold border-l-4 border-salvia shadow-inner italic font-bold">
+                <i data-lucide="users"></i> <span class="text-sm font-bold">Gestión Guías</span>
             </a>
-            <a href="gestionar-rutas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
-                <i data-lucide="map"></i> <span class="text-sm">Catálogo Rutas</span>
+            <a href="gestionar-rutas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <i data-lucide="map"></i> <span class="text-sm font-bold">Catálogo Rutas</span>
             </a>
-            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group">
+            <!-- Notificación Badge -->
+            <a href="notificaciones.html" class="flex items-center justify-between p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
+                <div class="flex items-center space-x-3 italic font-bold">
+                    <i data-lucide="bell" class="italic font-bold"></i> <span class="text-sm">Notificaciones</span>
+                </div>
+                <span class="bg-red-500 text-white text-[8px] px-1.5 py-0.5 rounded-full notification-dot font-data italic font-bold">3</span>
+            </a>
+            <a href="gestionar-resenas.html" class="flex items-center space-x-3 p-3 hover:bg-white/5 rounded-2xl transition group italic font-bold">
                 <i data-lucide="message-square"></i> <span class="text-sm font-bold">Reseñas</span>
             </a>
         </nav>
 
-        <div class="p-6 border-t border-salvia/20">
-            <a href="../../index.html" class="flex items-center justify-center space-x-2 text-[10px] font-bold opacity-60 hover:opacity-100 p-3 bg-black/20 rounded-xl transition uppercase">
-                <i data-lucide="log-out" class="w-3 h-3"></i> <span>Cerrar Sesión</span>
+        <div class="p-6 border-t border-salvia/20 italic font-bold">
+            <a href="../../index.html" class="flex items-center justify-center space-x-2 text-[10px] font-bold opacity-40 hover:opacity-100 p-3 bg-black/20 rounded-xl transition uppercase italic font-bold">
+                <i data-lucide="log-out" class="w-3 h-3 italic font-bold"></i> <span>Cerrar Sesión</span>
             </a>
         </div>
     </aside>
 
     <!-- ÁREA PRINCIPAL -->
-    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-polvo/50">
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-polvo/20 font-bold">
         
-        <!-- HEADER (Simetría Total) -->
-        <header class="bg-white h-20 px-6 md:px-8 flex justify-between items-center shadow-sm z-10 border-b border-salvia/10">
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-polvo text-cazador"><i data-lucide="menu"></i></button>
-                <h2 class="hidden md:block font-titulo text-2xl italic">Control de Staff</h2>
+        <!-- HEADER (Simetría Total con Index Admin) -->
+        <header class="bg-white h-20 px-6 md:px-8 flex justify-between items-center shadow-sm z-10 border-b border-salvia/10 italic font-bold">
+            <div class="flex items-center space-x-4 italic font-bold">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-polvo text-cazador italic font-bold"><i data-lucide="menu" class="italic font-bold"></i></button>
+                <h2 class="hidden md:block font-titulo text-2xl font-bold">Gestión de Personal</h2>
             </div>
             
-            <div class="flex items-center space-x-6">
-                <button class="hidden md:flex items-center space-x-2 bg-helecho text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-cazador transition shadow-lg shadow-helecho/20">
-                    <i data-lucide="user-plus" class="w-3 h-3"></i> <span>NUEVO GUÍA</span>
-                </button>
-                <div class="flex items-center space-x-3 border-l border-salvia/20 pl-6">
-                    <div class="text-right hidden sm:block">
-                        <p class="text-[10px] font-bold text-salvia uppercase">Admin</p>
-                        <p class="text-xs font-bold italic">Ricardo Samayoa</p>
-                    </div>
-                    <div class="w-10 h-10 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold shadow-lg italic">A</div>
+            <div class="flex items-center space-x-4 italic font-bold">
+                <div class="bg-helecho/10 p-2 rounded-full px-4 text-[10px] font-bold text-helecho border border-helecho/20 font-data uppercase tracking-widest italic font-bold">
+                    CAJA HOY: Q24,500.00
                 </div>
+                <div class="hidden sm:block text-right italic font-bold">
+                    <p class="text-[10px] font-bold text-salvia uppercase italic font-bold">Admin</p>
+                    <p class="text-xs font-bold text-cazador">Ricardo Samayoa</p>
+                </div>
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-helecho rounded-2xl flex items-center justify-center text-white font-titulo text-xl font-bold shadow-lg italic font-bold">A</div>
             </div>
         </header>
 
         <!-- CONTENIDO SCROLLABLE -->
-        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-10 no-scrollbar">
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-10 no-scrollbar italic font-bold">
             
-            <!-- SECCIÓN 1: SOLICITUDES DE VIAJEROS -->
-            <section class="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-salvia/10">
-                <div class="flex items-center justify-between mb-8 border-b border-polvo pb-4">
-                    <div class="flex items-center space-x-3">
-                        <i data-lucide="bell-ring" class="text-helecho animate-bounce"></i>
-                        <h3 class="text-2xl font-titulo font-bold italic">Peticiones de Viajeros</h3>
-                    </div>
-                    <span class="text-[9px] bg-red-100 text-red-600 px-3 py-1 rounded-full font-bold uppercase tracking-widest">2 Pendientes</span>
+            <!-- SECCIÓN 1: REGISTRO DE NUEVO GUÍA (Requerimiento 7 y 10) -->
+            <section class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-salvia/10 italic font-bold">
+                <div class="flex items-center space-x-3 mb-10 border-b border-polvo pb-6 italic font-bold">
+                    <i data-lucide="user-plus" class="text-helecho italic font-bold"></i>
+                    <h3 class="text-3xl font-titulo font-bold italic font-bold">Registrar Nuevo Staff</h3>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4">
-                    <!-- Card de Solicitud -->
-                    <div class="bg-polvo/20 rounded-[2rem] p-6 flex flex-col lg:flex-row items-center justify-between gap-6 border border-transparent hover:border-salvia/30 transition-all">
-                        <div class="flex items-center space-x-5">
-                            <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm">
-                                <i data-lucide="user-check" class="text-helecho"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-bold text-gray-800 italic">Carlos Gómez <span class="font-normal text-salvia italic font-bold">solicita a</span> Juan Manuel Tzul</p>
-                                <p class="text-[10px] text-cazador font-bold uppercase mt-1 italic font-bold">Ruta: Tikal Amanecer | 25 May</p>
-                            </div>
+                <form onsubmit="return false;" class="grid grid-cols-1 lg:grid-cols-3 gap-12 italic font-bold">
+                    <!-- Datos Personales -->
+                    <div class="space-y-8 italic font-bold">
+                        <div class="group italic font-bold">
+                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest italic font-bold">Nombre del Guía</label>
+                            <input type="text" placeholder="Ej. Carlos Manuel Tzul" class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none transition-all italic text-sm font-bold">
                         </div>
-
-                        <!-- Selector de Horario Estilizado -->
-                        <div class="flex flex-col items-center bg-white px-6 py-2 rounded-2xl shadow-sm border border-salvia/10">
-                            <label class="text-[8px] font-bold text-salvia uppercase tracking-widest mb-1 italic font-bold">Asignar Horario Final</label>
-                            <select class="bg-transparent text-xs font-bold text-cazador outline-none cursor-pointer italic">
-                                <option>04:00 AM - 11:00 AM</option>
-                                <option>06:00 AM - 01:00 PM</option>
+                        <div class="group italic font-bold">
+                            <label class="block text-[10px] font-bold text-salvia uppercase mb-2 tracking-widest italic font-bold">Especialidad Principal</label>
+                            <select class="w-full bg-transparent border-b border-polvo focus:border-helecho py-2 outline-none text-xs italic font-bold">
+                                <option>Arqueología Maya</option>
+                                <option>Avistamiento de Aves</option>
+                                <option>Fotografía de Naturaleza</option>
                             </select>
                         </div>
-
-                        <div class="flex space-x-3">
-                            <button class="bg-helecho text-white px-6 py-3 rounded-xl text-[10px] font-bold hover:bg-cazador transition shadow-md uppercase italic">Aceptar y Asignar</button>
-                            <button class="bg-white text-salvia border border-salvia/20 px-6 py-3 rounded-xl text-[10px] font-bold hover:text-red-500 transition italic font-bold">RECHAZAR</button>
+                        
+                        <!-- SERVICIOS DINÁMICOS (HABILIDADES) -->
+                        <div class="space-y-4 pt-4 italic font-bold">
+                            <label class="block text-[10px] font-bold text-salvia uppercase tracking-widest underline decoration-salvia italic font-bold">Servicios / Habilidades</label>
+                            <div class="flex space-x-2 italic font-bold">
+                                <input type="text" id="skillInput" placeholder="Ej. Bilingüe, Rescate, etc." class="flex-1 bg-polvo/20 border-none rounded-xl px-4 py-2 text-xs italic font-bold outline-none focus:ring-1 focus:ring-helecho">
+                                <button type="button" onclick="handleAddSkill()" class="bg-helecho text-white p-2 rounded-xl shadow-md hover:bg-cazador transition-all">
+                                    <i data-lucide="plus"></i>
+                                </button>
+                            </div>
+                            <div id="skillsContainer" class="flex flex-wrap gap-2 pt-2 italic font-bold"></div>
                         </div>
                     </div>
-                </div>
+
+                    <!-- Horarios y Turnos -->
+                    <div class="space-y-8 italic font-bold">
+                        <label class="block text-[10px] font-bold text-salvia uppercase mb-4 tracking-widest italic font-bold">Disponibilidad de Jornada</label>
+                        <div class="grid grid-cols-2 gap-4 italic font-bold">
+                            <div class="p-4 bg-polvo/10 rounded-2xl border border-salvia/10 italic font-bold">
+                                <label class="block text-[8px] text-gray-400 uppercase font-bold mb-1 italic">Desde</label>
+                                <input type="text" value="04:00 AM" class="bg-transparent text-xs font-data font-bold italic font-bold outline-none italic font-bold">
+                            </div>
+                            <div class="p-4 bg-polvo/10 rounded-2xl border border-salvia/10 italic font-bold">
+                                <label class="block text-[8px] text-gray-400 uppercase font-bold mb-1 italic">Hasta</label>
+                                <input type="text" value="02:00 PM" class="bg-transparent text-xs font-data font-bold italic font-bold outline-none italic font-bold">
+                            </div>
+                        </div>
+                        <div class="italic font-bold">
+                            <p class="text-[10px] font-bold text-salvia uppercase mb-4 italic">Días Laborales</p>
+                            <div class="flex flex-wrap gap-3 italic font-bold text-[10px] font-bold">
+                                <label class="flex items-center space-x-1 cursor-pointer"><input type="checkbox" checked class="accent-helecho"><span>Lun</span></label>
+                                <label class="flex items-center space-x-1 cursor-pointer"><input type="checkbox" checked class="accent-helecho"><span>Mar</span></label>
+                                <label class="flex items-center space-x-1 cursor-pointer"><input type="checkbox" checked class="accent-helecho"><span>Jue</span></label>
+                                <label class="flex items-center space-x-1 cursor-pointer"><input type="checkbox" class="accent-helecho"><span>Sab</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multimedia del Perfil -->
+                    <div class="space-y-6 flex flex-col justify-between italic font-bold">
+                        <div class="p-10 border-2 border-dashed border-polvo rounded-[2.5rem] text-center group hover:border-helecho transition-colors cursor-pointer italic font-bold">
+                            <i data-lucide="user-square" class="mx-auto mb-2 text-salvia group-hover:text-helecho transition-colors italic font-bold"></i>
+                            <span class="block text-[10px] font-bold text-salvia uppercase italic font-bold">Foto de Perfil</span>
+                            <p class="text-[9px] text-gray-400 mt-1 italic font-bold">Colores Naturales</p>
+                        </div>
+                        <button class="w-full bg-helecho text-white py-5 rounded-2xl font-bold text-[10px] shadow-xl shadow-helecho/20 uppercase tracking-widest italic font-bold underline decoration-white/30 italic font-bold">
+                            DAR DE ALTA GUÍA
+                        </button>
+                    </div>
+                </form>
             </section>
 
-            <!-- SECCIÓN 2: EQUIPO DE TRABAJO -->
-            <section>
-                <div class="flex items-center justify-between mb-8 border-b border-salvia/20 pb-4">
-                    <h3 class="text-3xl font-titulo text-cazador italic font-bold">Staff TikalCoffee</h3>
-                    <p class="text-[10px] font-bold text-salvia uppercase tracking-widest italic font-bold">8 Guías Certificados</p>
+            <!-- SECCIÓN 2: STAFF ACTUAL -->
+            <section class="italic font-bold">
+                <div class="flex items-center justify-between mb-8 border-b border-salvia/20 pb-4 italic font-bold">
+                    <h3 class="text-3xl font-titulo font-bold italic font-bold">Staff Activo TikalCoffee</h3>
+                    <div class="flex items-center space-x-2 italic font-bold">
+                        <i data-lucide="shield-check" class="text-helecho w-4 h-4 italic font-bold"></i>
+                        <span class="text-[10px] font-bold text-salvia uppercase italic font-bold">Certificación INGUAT al día</span>
+                    </div>
                 </div>
                 
-                <div class="bg-white rounded-[2.5rem] shadow-sm border border-salvia/10 overflow-hidden italic">
+                <div class="bg-white rounded-[2.5rem] shadow-sm border border-salvia/10 overflow-hidden italic font-bold">
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-polvo/30 text-salvia text-[10px] uppercase tracking-[0.2em] font-bold">
+                        <table class="w-full text-left italic font-bold">
+                            <thead class="bg-polvo/30 text-salvia text-[10px] uppercase tracking-[0.2em] font-bold italic font-bold">
                                 <tr>
-                                    <th class="px-8 py-5">Guía Responsable</th>
-                                    <th class="px-8 py-5">Especialidad</th>
+                                    <th class="px-8 py-5">Nombre del Guía</th>
+                                    <th class="px-8 py-5">Habilidades / Servicios</th>
                                     <th class="px-8 py-5">Tours Mes</th>
-                                    <th class="px-8 py-5">Estado Hoy</th>
+                                    <th class="px-8 py-5">Estado</th>
                                     <th class="px-8 py-5 text-right">Gestión</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-polvo/30 text-sm">
                                 <tr class="hover:bg-polvo/10 transition-colors">
                                     <td class="px-8 py-5 flex items-center space-x-4">
+                                        <!-- Imagen a Color como se pidió -->
                                         <img src="https://i.pravatar.cc/150?u=12" class="w-10 h-10 rounded-xl object-cover shadow-sm border-2 border-salvia/20">
                                         <span class="font-bold">Juan Manuel Tzul</span>
                                     </td>
                                     <td class="px-8 py-5">
-                                        <span class="text-[10px] bg-salvia/20 text-cazador px-2 py-1 rounded font-bold uppercase italic font-bold">Arqueología</span>
+                                        <div class="flex gap-2">
+                                            <span class="text-[9px] bg-salvia/20 text-cazador px-2 py-0.5 rounded font-bold uppercase italic font-bold">Inglés C1</span>
+                                            <span class="text-[9px] bg-salvia/20 text-cazador px-2 py-0.5 rounded font-bold uppercase italic font-bold">Primeros Auxilios</span>
+                                        </div>
                                     </td>
-                                    <td class="px-8 py-5 font-bold text-helecho italic font-bold">14 Tours</td>
+                                    <td class="px-8 py-5 font-data font-bold text-helecho">14 Rutas</td>
                                     <td class="px-8 py-5">
-                                        <span class="flex items-center space-x-1 text-red-500 font-bold text-[10px] uppercase italic font-bold">
-                                            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                                            <span>Ocupado</span>
-                                        </span>
-                                    </td>
-                                    <td class="px-8 py-5 text-right">
-                                        <button class="text-helecho hover:underline text-[10px] font-bold italic font-bold flex items-center justify-end space-x-1 ml-auto">
-                                            <i data-lucide="calendar" class="w-3 h-3"></i> <span>HORARIOS</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-polvo/10 transition-colors">
-                                    <td class="px-8 py-5 flex items-center space-x-4">
-                                        <img src="https://i.pravatar.cc/150?u=22" class="w-10 h-10 rounded-xl object-cover shadow-sm border-2 border-salvia/20">
-                                        <span class="font-bold">María José Méndez</span>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-[10px] bg-salvia/20 text-cazador px-2 py-1 rounded font-bold uppercase italic font-bold">Naturaleza</span>
-                                    </td>
-                                    <td class="px-8 py-5 font-bold text-helecho italic font-bold">09 Tours</td>
-                                    <td class="px-8 py-5">
-                                        <span class="flex items-center space-x-1 text-green-600 font-bold text-[10px] uppercase italic font-bold">
-                                            <span class="w-2 h-2 bg-green-600 rounded-full"></span>
+                                        <span class="flex items-center space-x-1 text-green-600 font-bold text-[10px] uppercase italic font-bold italic font-bold">
+                                            <span class="w-2 h-2 bg-green-600 rounded-full italic font-bold"></span>
                                             <span>Disponible</span>
                                         </span>
                                     </td>
                                     <td class="px-8 py-5 text-right">
                                         <button class="text-helecho hover:underline text-[10px] font-bold italic font-bold flex items-center justify-end space-x-1 ml-auto">
-                                            <i data-lucide="calendar" class="w-3 h-3"></i> <span>HORARIOS</span>
+                                            <i data-lucide="edit-3" class="w-3 h-3 italic font-bold"></i> <span>EDITAR</span>
                                         </button>
                                     </td>
                                 </tr>
@@ -222,6 +254,22 @@
 
     <script>
         lucide.createIcons();
+
+        function handleAddSkill() {
+            const input = document.getElementById('skillInput');
+            const container = document.getElementById('skillsContainer');
+            const text = input.value.trim();
+
+            if (text !== "") {
+                const tag = document.createElement('div');
+                tag.className = "tag-appear bg-helecho/10 text-cazador px-3 py-1.5 rounded-full border border-helecho/20 flex items-center space-x-2 text-[10px] font-bold italic font-bold";
+                tag.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-helecho font-bold"></i><span>${text}</span><button type="button" onclick="this.parentElement.remove()" class="text-red-400 ml-1 font-bold">×</button>`;
+                container.appendChild(tag);
+                input.value = "";
+                lucide.createIcons();
+            }
+        }
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Villa Selva Maya | TikalCoffee</title>
     
-    <!-- Google Fonts: Opción 1 -->
+    <!-- Google Fonts: Opción 1 (Cormorant + Montserrat) -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
     
     <!-- Scripts: Tailwind + Lucide Icons -->
@@ -44,59 +44,72 @@
         }
         .carousel-slide {
             width: 100vw;
-            height: 70vh;
+            height: 75vh;
             flex-shrink: 0;
         }
-        @media (max-width: 768px) { .carousel-slide { height: 50vh; } }
+        @media (max-width: 768px) {
+            .carousel-slide { height: 55vh; }
+        }
 
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         html { scroll-behavior: smooth; }
+
+        /* ANIMACIÓN PARA EL BOTÓN DE WHATSAPP */
+        .btn-whatsapp-pulse {
+            animation: pulse-whatsapp 2s infinite;
+        }
+        @keyframes pulse-whatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(88, 129, 87, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(88, 129, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(88, 129, 87, 0); }
+        }
     </style>
 </head>
-<body class="italic overflow-x-hidden font-bold">
+<body class="text-cazador italic overflow-x-hidden font-bold">
 
-    <!-- NAVBAR (SIMETRÍA TOTAL CON EL INDEX) -->
-    <nav class="fixed w-full z-[100] bg-polvo/90 backdrop-blur-md shadow-sm border-b border-salvia/30">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- NAVBAR TRANSPARENTE (SIMETRÍA TOTAL CON EL INDEX) -->
+    <nav class="absolute w-full z-[100] bg-gradient-to-b from-black/70 to-transparent italic">
+        <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center text-white">
             
             <!-- Izquierda: Logo -->
-            <div class="text-3xl font-titulo font-bold italic tracking-tighter text-cazador">TikalCoffee</div>
+            <a href="index.html" class="text-3xl font-titulo font-bold tracking-tighter text-white">TikalCoffee</a>
 
             <!-- Centro: Menú PC -->
-            <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-cazador">
-                <a href="index.html" class="hover:text-helecho transition">Historia</a>
-                <a href="airbnb-catalogo.html" class="text-helecho border-b-2 border-helecho">Hospedajes</a>
-                <a href="rutas-catalogo.html" class="hover:text-helecho transition">Rutas</a>
-                <a href="guias-directorio.html" class="hover:text-helecho transition">Staff</a>
-                <a href="dashboard/cliente/mis-reservas.html" class="hover:text-helecho transition">Mis Reservas</a>
+            <div class="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+                <a href="index.html#historia" class="hover:text-salvia transition">Historia</a>
+                <a href="airbnb-catalogo.html" class="hover:text-salvia transition">Hospedajes</a>
+                <a href="rutas-catalogo.html" class="hover:text-salvia transition">Rutas</a>
+                <a href="guias-directorio.html" class="hover:text-salvia transition">Staff</a>
+                <a href="dashboard/cliente/mis-reservas.html" class="hover:text-salvia transition border-l border-white/30 pl-4 font-bold">Mis Reservas</a>
             </div>
 
             <!-- Derecha: Perfil Estilo Index -->
             <div class="flex items-center space-x-4">
-                <div class="text-right hidden sm:block">
-                    <p class="text-[9px] font-bold text-salvia uppercase leading-none mb-1 opacity-70">Bienvenido</p>
-                    <p class="text-xs font-bold text-cazador italic leading-none">Ricardo Samayoa</p>
+                <div class="text-right hidden sm:block text-white">
+                    <p class="text-[9px] font-bold uppercase leading-none mb-1 opacity-70">Bienvenido</p>
+                    <p class="text-xs font-bold italic leading-none">Ricardo Samayoa</p>
                 </div>
                 
                 <a href="dashboard/cliente/mi-perfil.html" class="relative group block">
                     <img src="https://i.pravatar.cc/150?u=ricardo"
-                        class="w-10 h-10 rounded-full border-2 border-helecho object-cover shadow-md aspect-square">
-                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-helecho border-2 border-polvo rounded-full"></span>
+                        class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-md aspect-square">
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-helecho border-2 border-white rounded-full"></span>
                 </a>
                 
-                <button onclick="toggleMenu()" class="md:hidden text-2xl text-cazador focus:outline-none ml-2">☰</button>
+                <button onclick="toggleMenu()" class="md:hidden text-2xl text-white focus:outline-none ml-2">☰</button>
             </div>
         </div>
 
-        <!-- Menú Móvil Desplegable -->
-        <div id="mobileMenu" class="hidden flex-col bg-polvo border-b border-salvia p-6 space-y-4 text-center font-bold text-xs uppercase tracking-widest md:hidden italic">
+        <!-- MENÚ MÓVIL DESPLEGABLE (SIMETRÍA CON EL INDEX) -->
+        <div id="mobileMenu"
+            class="hidden flex-col bg-polvo border-b border-salvia/30 p-8 space-y-6 text-center font-bold text-sm uppercase tracking-widest md:hidden italic text-cazador">
             <a href="index.html" onclick="toggleMenu()">Historia</a>
             <a href="airbnb-catalogo.html" onclick="toggleMenu()">Hospedajes</a>
             <a href="rutas-catalogo.html" onclick="toggleMenu()">Rutas</a>
-            <a href="guias-directorio.html" onclick="toggleMenu()">Guías</a>
-            <a href="dashboard/cliente/mis-reservas.html" onclick="toggleMenu()" class="text-helecho border-t border-salvia/30 pt-4">Mis Reservas</a>
+            <a href="guias-directorio.html" onclick="toggleMenu()">Staff</a>
+            <a href="dashboard/cliente/mis-reservas.html" onclick="toggleMenu()" class="text-helecho border-t border-salvia/20 pt-4 font-bold">Mis Reservas</a>
             <a href="dashboard/cliente/mi-perfil.html" onclick="toggleMenu()">Mi Perfil</a>
         </div>
     </nav>
@@ -104,128 +117,160 @@
     <!-- CARRUSEL INFINITO EDGE-TO-EDGE -->
     <div class="relative w-full overflow-hidden bg-black">
         <div id="carousel-wrapper">
-            <!-- Foto 1: Exterior Selva -->
+            <!-- Foto 1 -->
             <div class="carousel-slide relative">
                 <img src="https://images.unsplash.com/photo-1512918766674-ed62b90eba9c?q=80&w=1200" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/20"></div>
             </div>
-            <!-- Foto 2: Piscina Privada -->
+            <!-- Foto 2 -->
             <div class="carousel-slide relative">
-                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1505691722718-25036f1f2aa5?q=80&w=1200" class="w-full h-full object-cover">
             </div>
-            <!-- Foto 3: Dormitorio Master -->
+            <!-- Foto 3 -->
             <div class="carousel-slide relative">
                 <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1200" class="w-full h-full object-cover">
             </div>
         </div>
-        <div class="absolute inset-0 flex justify-between items-center px-4 pointer-events-none">
-            <button onclick="prevSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl">
+        <div class="absolute inset-0 flex justify-between items-center px-4 md:px-10 pointer-events-none">
+            <button onclick="prevSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl italic font-bold">
                 <i data-lucide="chevron-left"></i>
             </button>
-            <button onclick="nextSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl">
+            <button onclick="nextSlide()" class="pointer-events-auto bg-white/10 backdrop-blur-md p-4 rounded-full text-white hover:bg-white/30 transition shadow-2xl italic font-bold">
                 <i data-lucide="chevron-right"></i>
             </button>
+        </div>
+        <!-- Dots -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
+            <div class="dot w-2 h-2 rounded-full bg-white transition-all cursor-pointer" onclick="goToSlide(0)"></div>
+            <div class="dot w-2 h-2 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(1)"></div>
+            <div class="dot w-2 h-2 rounded-full bg-white/30 transition-all cursor-pointer" onclick="goToSlide(2)"></div>
         </div>
     </div>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="max-w-7xl mx-auto px-6 py-16 font-bold">
+    <main class="max-w-7xl mx-auto px-6 py-16">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
             
             <!-- DESCRIPCIÓN EXPANDIDA (IZQUIERDA) -->
             <div class="lg:col-span-2 space-y-16 italic font-bold">
-                <div class="border-b border-salvia/20 pb-10 italic">
+                <div class="border-b border-salvia/20 pb-10">
                     <div class="flex items-center space-x-2 text-helecho mb-4 font-bold">
-                        <i data-lucide="tree-pine" class="w-5 h-5"></i>
-                        <span class="text-[11px] font-bold uppercase tracking-[0.3em]">Sanctuario Natural</span>
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                        <span class="text-[11px] font-bold uppercase tracking-[0.3em]">Santuario Natural</span>
                     </div>
                     <h1 class="text-5xl md:text-7xl font-titulo text-cazador italic font-bold mb-6 leading-tight">Villa Selva Maya</h1>
                     <div class="flex flex-wrap gap-6 text-xs text-salvia font-bold italic">
                         <span>📍 El Remate, Petén, Guatemala</span>
                         <span class="text-gray-300">|</span>
-                        <span>⭐ 4.8 (25 Experiencias)</span>
+                        <span>⭐ 4.8 (25 Experiencias Reales)</span>
                     </div>
                 </div>
 
                 <section class="space-y-6">
-                    <h2 class="text-3xl font-titulo text-helecho italic underline decoration-salvia underline-offset-8 font-bold">Sinfonía verde en El Remate</h2>
+                    <h2 class="text-3xl font-titulo text-helecho italic underline decoration-salvia underline-offset-8 font-bold">Sinfonía verde en la selva</h2>
                     <p class="text-gray-600 leading-relaxed text-lg font-bold">
-                        Escondida entre la densa vegetación de la reserva de El Remate, Villa Selva Maya es mucho más que un hospedaje; es un refugio privado diseñado para aquellos que buscan el silencio absoluto y la conexión real con la biosfera maya. La arquitectura de la villa integra materiales de bajo impacto ambiental, utilizando piedra caliza y maderas de fuentes sostenibles para mimetizarse con el entorno.
+                        Escondida entre la densa vegetación de la reserva de El Remate, Villa Selva Maya es mucho más que un hospedaje; es un refugio privado diseñado para aquellos que buscan el silencio absoluto y la conexión real con la biosfera maya. La arquitectura de la villa integra materiales de bajo impacto ambiental para mimetizarse con el entorno.
                     </p>
                     <p class="text-gray-600 leading-relaxed text-lg font-bold">
-                        Disfruta de una tarde de descanso en tu piscina privada mientras el sol se filtra entre las hojas de ceibas gigantes. Al caer la tarde, la villa se convierte en una ventana privilegiada a la fauna local: desde el balcón podrás escuchar el aullido de los monos saraguates y el canto de los tucanes. Para completar la experiencia, hemos dispuesto de una prensa francesa y granos frescos de <span class="text-helecho">TikalCoffee</span> seleccionados especialmente para esta ubicación selvática.
+                        Disfruta de una tarde de descanso en tu terraza mientras el sol se filtra entre las hojas de ceibas gigantes. Para completar la experiencia, hemos dispuesto de una prensa francesa y granos frescos de <span class="text-helecho">TikalCoffee artesanal</span> seleccionados especialmente para tu estancia.
                     </p>
                 </section>
 
                 <!-- Amenidades -->
-                <section class="bg-white/40 p-8 md:p-12 rounded-[3rem] border border-salvia/10 shadow-sm">
-                    <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-salvia mb-10 italic">Comodidades de la Villa</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="waves" class="text-helecho"></i><span class="text-[10px] uppercase">Piscina Infinity</span></div>
-                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="satellite" class="text-helecho"></i><span class="text-[10px] uppercase">Starlink WiFi</span></div>
-                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="shield-check" class="text-helecho"></i><span class="text-[10px] uppercase">Seguridad 24/7</span></div>
-                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="sparkles" class="text-helecho"></i><span class="text-[10px] uppercase">Eco-Lujo</span></div>
+                <section class="bg-white/40 p-8 md:p-12 rounded-[3rem] border border-salvia/10 shadow-sm font-bold">
+                    <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-salvia mb-10 italic font-bold">Comodidades Premium</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center italic">
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="waves" class="text-helecho"></i><span class="text-[10px] uppercase font-bold">Piscina</span></div>
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="wifi" class="text-helecho"></i><span class="text-[10px] uppercase font-bold">Starlink</span></div>
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="shield-check" class="text-helecho"></i><span class="text-[10px] uppercase font-bold">Seguridad</span></div>
+                        <div class="flex flex-col items-center space-y-3 italic"><i data-lucide="coffee" class="text-helecho"></i><span class="text-[10px] uppercase font-bold">Coffee Bar</span></div>
                     </div>
                 </section>
             </div>
 
-            <!-- TARJETA RESERVA + PAGO (STICKY) -->
+            <!-- TARJETA RESERVA + PAGO CON TARJETA -->
             <div class="relative italic font-bold">
-                <div id="booking-card" class="bg-white p-8 md:p-10 rounded-[3rem] shadow-2xl border border-salvia/10 lg:sticky lg:top-24">
+                <div id="booking-card" class="bg-white p-8 md:p-10 rounded-[3rem] shadow-2xl border border-salvia/10 lg:sticky lg:top-10 italic font-bold">
                     
                     <!-- PASO 1 -->
                     <div id="step-1" class="fade-in">
-                        <p class="text-3xl font-bold text-cazador italic underline decoration-salvia mb-8 font-bold">Q600.00 <span class="text-xs font-normal text-salvia">/ noche</span></p>
-                        <div class="space-y-4 mb-10 italic font-bold">
+                        <p class="text-3xl font-bold text-cazador italic underline decoration-salvia mb-8 font-bold">Q600.00 <span class="text-xs font-normal text-salvia font-bold italic font-bold">/ noche</span></p>
+                        <div class="space-y-4 mb-10 italic">
                             <div class="grid grid-cols-2 gap-2">
-                                <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner italic font-bold">
-                                    <label class="block text-[9px] uppercase mb-1">Check-in</label>
+                                <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner font-bold italic">
+                                    <label class="block text-[9px] uppercase mb-1">Entrada</label>
                                     <input type="text" placeholder="Fecha" class="w-full bg-transparent text-xs font-bold outline-none italic font-bold">
                                 </div>
-                                <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner italic font-bold">
-                                    <label class="block text-[9px] uppercase mb-1">Check-out</label>
+                                <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner font-bold italic">
+                                    <label class="block text-[9px] uppercase mb-1">Salida</label>
                                     <input type="text" placeholder="Fecha" class="w-full bg-transparent text-xs font-bold outline-none italic font-bold">
                                 </div>
                             </div>
-                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner italic font-bold">
-                                <label class="block text-[9px] uppercase mb-1">Viajeros</label>
-                                <select class="w-full bg-transparent text-xs font-bold outline-none italic font-bold"><option>2 Adultos</option><option>Familia (4+)</option></select>
+                            <div class="p-4 bg-nieve rounded-2xl border border-salvia/20 shadow-inner font-bold italic font-bold">
+                                <label class="block text-[9px] uppercase mb-1 font-bold">Huéspedes</label>
+                                <select class="w-full bg-transparent text-xs font-bold outline-none italic font-bold font-bold font-bold"><option>2 Adultos</option><option>Familia</option></select>
                             </div>
                         </div>
-                        <button onclick="goToPayment()" class="w-full bg-helecho text-white py-5 rounded-[2rem] font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition uppercase text-[11px] tracking-[0.2em] underline decoration-white/30">RESERVAR AHORA</button>
+                        <button onclick="goToPayment()" class="w-full bg-helecho text-white py-5 rounded-[2rem] font-bold shadow-xl shadow-helecho/20 hover:bg-cazador transition uppercase text-[11px] tracking-[0.2em] underline decoration-white/30 italic font-bold font-bold">RESERVAR AHORA</button>
                     </div>
 
-                    <!-- PASO 2 -->
+                    <!-- PASO 2: PAGO SEGURO -->
                     <div id="step-2" class="hidden fade-in italic font-bold">
-                        <button onclick="goToBooking()" class="text-[9px] uppercase mb-6 flex items-center hover:text-helecho transition"><i data-lucide="chevron-left" class="w-3 h-3 mr-1"></i> Volver</button>
-                        <h3 class="text-2xl font-titulo font-bold mb-6 underline decoration-salvia italic font-bold">Pasarela de Pago</h3>
-                        <form class="space-y-5 mb-10 font-bold">
-                            <input type="text" placeholder="XXXX XXXX XXXX XXXX" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs font-mono italic font-bold">
+                        <button onclick="goToBooking()" class="text-[9px] uppercase mb-6 flex items-center hover:text-helecho transition font-bold italic"><i data-lucide="chevron-left" class="w-3 h-3 mr-1"></i> Volver</button>
+                        <h3 class="text-2xl font-titulo text-cazador font-bold mb-6 underline decoration-salvia italic font-bold">Pago con Tarjeta</h3>
+                        <form onsubmit="return false;" class="space-y-5 mb-10 font-bold">
+                            <input type="text" placeholder="Número de Tarjeta" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs font-mono italic font-bold">
                             <div class="grid grid-cols-2 gap-4">
                                 <input type="text" placeholder="MM/YY" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs italic font-bold">
                                 <input type="password" placeholder="CVV" class="w-full bg-transparent border-b border-polvo py-3 outline-none text-xs italic font-bold">
                             </div>
                         </form>
-                        <button onclick="location.href='dashboard/cliente/mis-reservas.html'" class="w-full bg-cazador text-white py-5 rounded-[2rem] font-bold shadow-xl uppercase text-[11px] tracking-[0.2em]">FINALIZAR RESERVA</button>
+                        <button onclick="location.href='dashboard/cliente/mis-reservas.html'" class="w-full bg-cazador text-white py-5 rounded-[2rem] font-bold shadow-xl uppercase text-[11px] tracking-[0.2em] italic font-bold">FINALIZAR PAGO</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-cazador py-16 text-nieve/40 text-center text-[10px] uppercase tracking-[0.3em] font-bold italic font-bold">
+    <!-- BOTÓN FLOTANTE DE WHATSAPP (SIMETRÍA Y RESPONSIVE) -->
+    <a href="https://wa.me/50200000000?text=Hola,%20quisiera%20más%20información%20sobre%20Villa%20Selva%20Maya" 
+       target="_blank"
+       class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[120] bg-helecho text-white p-4 md:p-5 rounded-full shadow-2xl hover:bg-cazador transition-all transform hover:-translate-y-2 flex items-center justify-center btn-whatsapp-pulse group"
+       title="Consultar por WhatsApp">
+        <i data-lucide="message-circle" class="w-6 h-6 md:w-8 md:h-8"></i>
+        <span class="absolute right-full mr-4 bg-cazador text-white text-[10px] py-2 px-4 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block italic">
+            ¿Dudas? Escríbenos
+        </span>
+    </a>
+
+    <footer class="bg-cazador py-16 text-nieve/40 text-center text-[10px] uppercase font-bold italic font-bold">
         <h2 class="font-titulo text-3xl text-nieve mb-4 normal-case italic font-bold">TikalCoffee</h2>
-        <p>© 2024 Flores, Petén. La selva te espera.</p>
+        <p>© 2024 Flores, Petén. Guatemala.</p>
     </footer>
 
     <script>
         lucide.createIcons();
-        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); document.getElementById('mobileMenu').classList.toggle('flex'); }
+        function toggleMenu() { 
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden'); 
+            menu.classList.toggle('flex'); 
+        }
+        
         let currentSlide = 0; const totalSlides = 3; const wrapper = document.getElementById('carousel-wrapper');
-        function updateCarousel() { wrapper.style.transform = `translateX(-${currentSlide * 100}vw)`; }
+        const dots = document.querySelectorAll('.dot');
+
+        function updateCarousel() { 
+            wrapper.style.transform = `translateX(-${currentSlide * 100}vw)`; 
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentSlide);
+                dot.classList.toggle('bg-white/30', index !== currentSlide);
+            });
+        }
         function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateCarousel(); }
         function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; updateCarousel(); }
+        function goToSlide(index) { currentSlide = index; updateCarousel(); }
         setInterval(nextSlide, 6000);
+
         function goToPayment() { document.getElementById('step-1').classList.add('hidden'); document.getElementById('step-2').classList.remove('hidden'); lucide.createIcons(); }
         function goToBooking() { document.getElementById('step-2').classList.add('hidden'); document.getElementById('step-1').classList.remove('hidden'); lucide.createIcons(); }
     </script>
